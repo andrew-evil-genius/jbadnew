@@ -162,5 +162,4 @@ function checkActiveLink($link, $page) {
 	return "";
 	
 }
-
 ?>
