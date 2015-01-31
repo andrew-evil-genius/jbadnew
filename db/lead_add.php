@@ -22,31 +22,30 @@ $stage = filter_input(INPUT_GET, "stage");
 $campaign = filter_input(INPUT_GET, "campaign");
 
 $sql = "insert into leads (name, contact_name, line_of_business, status_id, type_id, stage_id, campaign_id) 
-		values ('$company_name', '$contact_name', '$lob', $status, $type, $stage, $campaign)";
+        values ('$company_name', '$contact_name', '$lob', $status, $type, $stage, $campaign)";
 
 $result = $db->query($sql);
 
 if (!$result) {
-	$response = array("succes" => $result, "msg" => $db->error);
-	echo json_encode($response);
-	exit;
+    $response = array("succes" => $result, "msg" => $db->error);
+    echo json_encode($response);
+    exit;
 }
 
 $lead_id = $db->insert_id;
 
 if (isset($address_1) && $address_1 != "") {
-	$sql = "insert into lead_address (lead_id, line_1, line_2, city, state_id, zip) 
-			values ($lead_id, '$address_1', '$address_2', '$city', $state_id, '$zip')"; 
-	$result = $db->query($sql);
+    $sql = "insert into lead_address (lead_id, line_1, line_2, city, state_id, zip) 
+            values ($lead_id, '$address_1', '$address_2', '$city', $state_id, '$zip')"; 
+    $result = $db->query($sql);
 
-	if ($result) {
-		$msg = "Lead Added.";
-	} else {
-		$msg = $db->error;
-	}
+    if ($result) {
+    	$msg = "Lead Added.";
+    } else {
+	$msg = $db->error;
+    }
 }
 
 $response = array("succes" => $result, "msg" => $msg);
 
 echo json_encode($response);
-?>

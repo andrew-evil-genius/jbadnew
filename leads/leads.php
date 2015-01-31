@@ -150,32 +150,32 @@
         createEditLead();
     }
 	
-	function renderToolbar(toolbar) {
-		var container = $("<div style='overflow: hidden; position: relative; height: 100%; width: 100%;'></div>");
-		var addNewButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Add New Lead</div></div>");
+    function renderToolbar(toolbar) {
+        var container = $("<div style='overflow: hidden; position: relative; height: 100%; width: 100%;'></div>");
+        var addNewButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Add New Lead</div></div>");
         var deleteButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Delete Lead</div></div>");
-		container.append(addNewButton);
+        container.append(addNewButton);
         container.append(deleteButton);
-		toolbar.append(container);
-		
-		addNewButton.jqxButton({
-			height: 20,
-			width: 95,
-			theme: "<?php echo $widget_style; ?>"
-		});
+        toolbar.append(container);
+
+        addNewButton.jqxButton({
+            height: 20,
+            width: 95,
+            theme: "<?php echo $widget_style; ?>"
+        });
 
         deleteButton.jqxButton({
             height: 20,
             width: 85,
             theme: "<?php echo $widget_style; ?>"
         });
-		
-		addNewButton.on("click", function (event) {
+
+        addNewButton.on("click", function (event) {
             addNewButtonClick(event);
-		});
+        });
 
         deleteButton.on("click", deleteButtonClick);
-	}
+    }
 
     function deleteButtonClick(event) {
         $("#dialog").jqxWindow({ title: "Warning!"});

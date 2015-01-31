@@ -15,75 +15,72 @@ $widget_style = "classic";
 <!-- Header -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-	<title>JB Advertising</title>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<link rel="stylesheet" href="css/main-style.css" type="text/css" />
-	<link rel="stylesheet" href="js/jqwidgets/styles/jqx.base.css" type="text/css" />
-	<link rel="stylesheet" href="js/jqwidgets/styles/jqx.<?php echo $widget_style; ?>.css" type="text/css" />
-	<script type="text/javascript" src="js/jquery/jquery.js"></script>
-	<script type="text/javascript" src="js/jqwidgets/jqxcore.js"></script>
-  <script type="text/javascript" src="js/jqwidgets/jqxwindow.js"></script>
-	<script type="text/javascript" src="js/jqwidgets/jqxvalidator.js"></script>
+    <title>JB Advertising</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main-style.css" type="text/css" />
+    <link rel="stylesheet" href="js/jqwidgets/styles/jqx.base.css" type="text/css" />
+    <link rel="stylesheet" href="js/jqwidgets/styles/jqx.<?php echo $widget_style; ?>.css" type="text/css" />
+    <script type="text/javascript" src="js/jquery/jquery.js"></script>
+    <script type="text/javascript" src="js/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="js/jqwidgets/jqxwindow.js"></script>
+    <script type="text/javascript" src="js/jqwidgets/jqxvalidator.js"></script>
 </head>
 <body>
-	<div id="container">
-  		<div id="header">
-    		<h1><a href="#">JB Advertising</a></h1>
-    		<h3>Campaign Managment System</h3>
-  		</div>
+    <div id="container">
+	<div id="header">
+            <h1><a href="#">JB Advertising</a></h1>
+            <h3>Campaign Managment System</h3>
+  	</div>
   
 <!-- Start Main Navigation -->
-  		<ul id="nav">
-    		<li><a href="index.php"  <?php echo checkActiveLink("home", $page); ?>>Home</a></li>
+  	<ul id="nav">
+            <li><a href="index.php"  <?php echo checkActiveLink("home", $page); ?>>Home</a></li>
 <?php 
-	if ($authorized) {
-		require_once("home/home_navigation.php");
-		echo "<li><a href='db/logout.php'>Logout</a></li>";
-	}
+    if ($authorized) {
+        require_once("home/home_navigation.php");
+	echo "<li><a href='db/logout.php'>Logout</a></li>";
+    }
 ?>
-  		</ul>
-  		<br class="clear" />
+	</ul>
+  	<br class="clear" />
 <!-- End Main Navigation -->
   
 <!-- Start Sidebar -->
-  		<div id="sidebar">
+  	<div id="sidebar">
 <?php 
 if ($authorized) {
-	require_once "$nav/$sidebar.php";
+    require_once "$nav/$sidebar.php";
 } else {
-	require_once "login/login_sidebar.php"; 
+    require_once "login/login_sidebar.php"; 
 }
 	
-if ($debug) { ?>
-
-			<div id="sidebar_bottom">
-
-			</div>
-<?php } ?>
- 		</div>
+if ($debug): ?>
+        <div id="sidebar_bottom"></div>
+<?php endif; ?>
+ 	</div>
 <!-- End Sidebar -->  
   		
 <!-- Start Content -->
-  		<div id="content">
+  	<div id="content">
 <?php 
 if ($authorized) {
-	require_once "$nav/$page.php";
+    require_once "$nav/$page.php";
 } else {
-	require_once "login/login.php"; 
+    require_once "login/login.php"; 
 }
 ?>
-  		</div>
-	</div>
+  	</div>
+    </div>
 <!-- End Content -->
 	
 <!-- Start Footer -->
-	<div id="footer">
-  		<p> Site created by <a href="http://andrewcooperonline.com">Andrew Cooper.</a>.<br>
-		&copy; 2014 JB Advertising Ventures </p>
-	</div>
+    <div id="footer">
+        <p> Site created by <a href="http://andrewcooperonline.com">Andrew Cooper.</a>.<br>
+        &copy; 2014 JB Advertising Ventures </p>
+    </div>
 <!-- End Footer -->
 
-	<div id="dialog">
+    <div id="dialog">
         <div>
             Dialog Window
         </div>
@@ -101,47 +98,47 @@ if ($authorized) {
     </div>
 
 <!-- Start index.php javascript -->
-	<script content-type="text/javascript">
+    <script content-type="text/javascript">
 	var isAdmin = <?php echo ($admin == 1 ? "true" : "false"); ?>;
 	
 	$(document).ready(function() {
-		if (typeof(contentReady) != "undefined") {
-			contentReady();
-		}
+            if (typeof(contentReady) != "undefined") {
+                contentReady();
+            }
 
-		createDialog();
+            createDialog();
 	});
 
 	function createDialog() {
-        $('#dialog').jqxWindow({
-        	theme: "<?php echo $widget_style; ?>", 
-            maxHeight: 150, 
-            maxWidth: 280, 
-            minHeight: 30, 
-            minWidth: 250, 
-            height: 145, 
-            width: 270,
-            resizable: false, 
-            isModal: true, 
-            modalOpacity: 0.3,
-            okButton: $('#ok'), 
-            cancelButton: $('#cancel'),
-            autoOpen: false,
-            initContent: function () {
-                $('#ok').jqxButton({ width: '65px' });
-                $('#cancel').jqxButton({ width: '65px' });
-                $('#ok').focus();
-            }
-        });
-    }
+            $('#dialog').jqxWindow({
+                theme: "<?php echo $widget_style; ?>", 
+                maxHeight: 150, 
+                maxWidth: 280, 
+                minHeight: 30, 
+                minWidth: 250, 
+                height: 145, 
+                width: 270,
+                resizable: false, 
+                isModal: true, 
+                modalOpacity: 0.3,
+                okButton: $('#ok'), 
+                cancelButton: $('#cancel'),
+                autoOpen: false,
+                initContent: function () {
+                    $('#ok').jqxButton({ width: '65px' });
+                    $('#cancel').jqxButton({ width: '65px' });
+                    $('#ok').focus();
+                }
+            });
+        }
 
-    function flash(text) {
-        $("#sidebar_bottom").html(text);
-        $("#sidebar_bottom").fadeIn(400);
-        $("#sidebar_bottom").fadeOut(5000);
-    }
+        function flash(text) {
+            $("#sidebar_bottom").html(text);
+            $("#sidebar_bottom").fadeIn(400);
+            $("#sidebar_bottom").fadeOut(5000);
+        }
 
-	</script>
+    </script>
 <!-- End index.php javascript -->
 </body>
 </html>
@@ -151,15 +148,15 @@ if ($authorized) {
 // index.php PHP functions.
 
 function checkActiveLink($link, $page) {
-	if ($link == "home" && !$page) {
-		return "class='active'";
-	}
+    if ($link == "home" && !$page) {
+	return "class='active'";
+    }
 	
-	if ($link == $page) {
-		return "class='active'";
-	}
+    if ($link == $page) {
+	return "class='active'";
+    }
 	
-	return "";
+    return "";
 	
 }
 

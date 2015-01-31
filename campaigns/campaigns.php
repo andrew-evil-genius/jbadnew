@@ -60,6 +60,8 @@
 <script type="text/javascript" src="js/jqwidgets/jqxlistbox.js"></script> 
 
 <script type="text/javascript">
+    var selectedId = 0;
+    
     function contentReady() {
         // prepare the data
         var source = {
@@ -76,32 +78,31 @@
         };
 
         var dataAdapter = new $.jqx.dataAdapter(source, {
-                formatData: function (data) {
-                    $.extend(data, {
-                        featureClass: "P",
-                        style: "full",
-                        username: "jqwidgets",
-                        maxRows: 50
-                    });
+            formatData: function (data) {
+                $.extend(data, {
+                    featureClass: "P",
+                    style: "full",
+                    username: "jqwidgets",
+                    maxRows: 50
+                });
 
-                    return data;
-                }
+                return data;
             }
-        );
+        });
 
         $("#campaigns_table").jqxDataTable({
-        	theme: "<?php echo $widget_style; ?>",
+            theme: "<?php echo $widget_style; ?>",
             width: 750,
             pageable: true,
             pagerButtonsCount: 10,
             source: dataAdapter,
             columnsResize: true,
-			sortable: true,
-			showToolbar: isAdmin,
-			renderToolbar: renderToolbar,
-			altRows: true,
+            sortable: true,
+            showToolbar: isAdmin,
+            renderToolbar: renderToolbar,
+            altRows: true,
             filterable: true,
-			filterMode: "advanced",
+            filterMode: "advanced",
             columns: [
                 { text: 'id', dataField: 'id', width: 50, filterable: false },
                 { text: 'Campaign Name', dataField: 'name', width: 250 },
@@ -111,18 +112,22 @@
                 
             ]
         });
+        
+        $("#campaigns_table").on("rowSelect", function (event) {
+            selectedId = event.args.row.id;
+        });
 		
-		$("#campaigns_table").on("rowDoubleClick", function (event) {
-			var row = event.args.row;
-			flash("You will be editing - " + row.name);
-		});
+        $("#campaigns_table").on("rowDoubleClick", function (event) {
+            var row = event.args.row;
+            flash("You will be editing - " + row.name);
+        });
 
-        createEditUser();
+        createEditCampaign();
     }
 
     var selectedId = 0;
 
-    function createEditUser() {
+    function createEditCampaign() {
         $('#edit_campaign').jqxWindow({ 
             theme: "<?php echo $widget_style; ?>", 
             width: 320,
@@ -136,7 +141,7 @@
             theme: "<?php echo $widget_style; ?>", 
             width: 300,
             height: 25,
-            placeHolder: "Username"
+            placeHolder: "Campaign Name"
         });
 
         $("#edit_first_name").jqxInput({
@@ -196,19 +201,19 @@
         });
     }
 	
-	function renderToolbar(toolbar) {
-		var container = $("<div style='overflow: hidden; position: relative; height: 100%; width: 100%;'></div>");
-		var addNewButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Add New Campaign</div></div>");
+    function renderToolbar(toolbar) {
+        var container = $("<div style='overflow: hidden; position: relative; height: 100%; width: 100%;'></div>");
+	var addNewButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Add New Campaign</div></div>");
         var toggleActiveButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Toggle Active</div></div>");
-		container.append(addNewButton);
+	container.append(addNewButton);
         container.append(toggleActiveButton);
-		toolbar.append(container);
-		
-		addNewButton.jqxButton({
-			height: 20,
-			width: 130,
-			theme: "<?php echo $widget_style; ?>"
-		});
+	toolbar.append(container);
+	
+	addNewButton.jqxButton({
+            height: 20,
+            width: 130,
+            theme: "<?php echo $widget_style; ?>"
+	});
 
         toggleActiveButton.jqxButton({
             height: 20,
@@ -216,12 +221,31 @@
             theme: "<?php echo $widget_style; ?>"
         });
 		
-		addNewButton.on("click", function (event) {
-			flash("We will add a new Campaign!");
-		});
+	addNewButton.on("click", function (event) {
+            flash("We will add a new Campaign!");
+	});
 
         toggleActiveButton.on("click", function (event) {
-            flash("We will toggle the Campaign!");
+            setActiveCampaign();
+            console.log(event);
         });
-	}
+    }
+    
+    function setActiveCampaign() {
+        $.ajax("db/set_active_campaign.php",{
+            data: { campaign_id: selectedId },
+            type: "POST",
+            error: handleSetActiveCampaignError,
+            success: handleSetActiveCampaignSuccess
+        });
+    }
+    
+    function handleSetActiveCampaignError(xhr, textStatus, error) {
+        flash(error);
+    }
+    
+    function handleSetActiveCampaignSuccess(data, textStatus, xhr) {
+        var response = $.parseJSON(data);
+        if (response.success) window.location.reload(false);
+    }
 </script>
