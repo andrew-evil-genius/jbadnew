@@ -17,22 +17,20 @@ $sql = "select u.id,
 			concat_ws(' ', u.fname, u.lname) as user, 
 			u.admin,
 			u.campaign, 
-			c.campaign_name 
-		from users as u
-		inner join campaigns as c on u.campaign = c.id
+			c.name 
+		from users as u 
+		inner join campaigns as c on u.campaign = c.id 
 		where username = '".filter_input(INPUT_POST, "username")."'";
-// error_log($sql);
+
 $result = $db->query($sql);
 
 if ($result) {
 	$user = $result->fetch_assoc();
-//	error_log(md5($password));
-//	error_log(md5($user["password"]));
 	if (md5($password) == $user["password"]) {
 		$_SESSION["username"] = filter_input(INPUT_POST, "username");
 		$_SESSION["user"] = $user["user"];
 		$_SESSION["admin"] = $user["admin"];
-		$_SESSION["curr_campaign"] = $user["campaign_name"];
+		$_SESSION["curr_campaign"] = $user["name"];
 		$_SESSION["curr_campaign_id"] = $user["campaign"];
 		$_SESSION["flash"] = "Logged in!";
 	} else {

@@ -78,7 +78,7 @@ if ($authorized) {
 	
 <!-- Start Footer -->
 	<div id="footer">
-  		<p> Template design by <a href="http://www.sixshootermedia.com">Six Shooter Media</a>.<br>
+  		<p> Site created by <a href="http://andrewcooperonline.com">Andrew Cooper.</a>.<br>
 		&copy; 2014 JB Advertising Ventures </p>
 	</div>
 <!-- End Footer -->
