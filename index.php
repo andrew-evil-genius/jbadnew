@@ -29,7 +29,7 @@ $widget_style = "classic";
     <div id="container">
 	<div id="header">
             <h1><a href="#">JB Advertising</a></h1>
-            <h3>Campaign Managment System</h3>
+            <h3>Campaign Management System</h3>
   	</div>
   
 <!-- Start Main Navigation -->
