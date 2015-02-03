@@ -29,4 +29,3 @@ if ($result) {
 $response = array("succes" => $result, "msg" => $msg);
 
 echo json_encode($response);
-?>

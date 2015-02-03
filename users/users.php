@@ -123,8 +123,8 @@
             selectedId = event.args.row.id;
         });
 
-		$("#users_table").on("rowDoubleClick", function (event) {
-			var row = event.args.row;
+	$("#users_table").on("rowDoubleClick", function (event) {
+            var row = event.args.row;
             $('#edit_user').jqxWindow({title: "Edit User - " + row.last_name + ", " + row.first_name});
             $("#edit_id").val(row.id);
             $("#edit_username").val(row.username);
@@ -134,7 +134,7 @@
             $("#edit_email").val(row.email);
             $("#edit_admin").jqxCheckBox({checked: row.admin});
             $("#edit_username").focus();
-			$('#edit_user').jqxWindow("open");
+            $('#edit_user').jqxWindow("open");
 
             // Rules slightly different between adding and editing.
             $("#edit_user_form").jqxValidator({
@@ -143,7 +143,7 @@
                     {input: "#edit_password", message: "Password must be from 4-15 characters.", action: "keyup", 
                         rule: function (input, commit) {
                             var value = input.val();
-                            if (value == "" || (value.length >= 4 && value.length <= 15)) {
+                            if (value === "" || (value.length >= 4 && value.length <= 15)) {
                                 return true;
                             } else {
                                 return false;
@@ -236,29 +236,29 @@
         });
     }
 	
-	function renderToolbar(toolbar) {
-		var container = $("<div style='overflow: hidden; position: relative; height: 100%; width: 100%;'></div>");
-		var addNewButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Add New User</div></div>");
+    function renderToolbar(toolbar) {
+        var container = $("<div style='overflow: hidden; position: relative; height: 100%; width: 100%;'></div>");
+        var addNewButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Add New User</div></div>");
         var deleteButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Delete User</div></div>");
-		container.append(addNewButton);
+        container.append(addNewButton);
         container.append(deleteButton);
-		toolbar.append(container);
-		
-		addNewButton.jqxButton({
-			height: 20,
-			width: 95,
-			theme: "<?php echo $widget_style; ?>"
-		});
+        toolbar.append(container);
+
+        addNewButton.jqxButton({
+            height: 20,
+            width: 95,
+            theme: "<?php echo $widget_style; ?>"
+        });
 
         deleteButton.jqxButton({
             height: 20,
             width: 80,
             theme: "<?php echo $widget_style; ?>"
         });
-		
-		addNewButton.on("click", addNewButtonClick);
+
+        addNewButton.on("click", addNewButtonClick);
         deleteButton.on("click", deleteButtonClick);
-	}
+    }
 
     function deleteButtonClick(event) {
         $("#dialog").jqxWindow({ title: "Warning!"});
@@ -331,11 +331,11 @@
             success: onEditUserSuccess,
             error: onEditUserError,
             complete: onDbActionComplete
-        })
+        });
     }
 
     function deleteUser(event, id) {
-        if (id == 0) {
+        if (id === 0) {
             flash("You must select a User to delete.");
             return;
         }

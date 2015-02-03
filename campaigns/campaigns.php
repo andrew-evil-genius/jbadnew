@@ -15,17 +15,17 @@
                 </tr>
                 <tr>
                     <td>
-                        <input id="edit_first_name"/>
+                        <div id="edit_start_date"></div>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <input id="edit_last_name"/>
+                        <div id="edit_end_date"></div>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <div id='edit_admin'>
+                        <div id='edit_status'>
                             Active?
                         </div>
                     </td>
@@ -58,6 +58,9 @@
 <script type="text/javascript" src="js/jqwidgets/jqxdatatable.js"></script> 
 <script type="text/javascript" src="js/jqwidgets/jqxdropdownlist.js"></script> 
 <script type="text/javascript" src="js/jqwidgets/jqxlistbox.js"></script> 
+<script type="text/javascript" src="js/jqwidgets/jqxdatetimeinput.js"></script> 
+<script type="text/javascript" src="js/jqwidgets/jqxcalendar.js"></script>
+<script type="text/javascript" src="js/jqwidgets/globalization/globalize.js"></script> 
 
 <script type="text/javascript">
     var selectedId = 0;
@@ -131,7 +134,7 @@
         $('#edit_campaign').jqxWindow({ 
             theme: "<?php echo $widget_style; ?>", 
             width: 320,
-            height: 270, 
+            height: 230, 
             resizable: false,
             isModal: true,
             autoOpen: false
@@ -144,21 +147,19 @@
             placeHolder: "Campaign Name"
         });
 
-        $("#edit_first_name").jqxInput({
+        $("#edit_start_date").jqxDateTimeInput({
             theme: "<?php echo $widget_style; ?>", 
             width: 300,
-            height: 25,
-            placeHolder: "First Name"
+            height: 25
         });
 
-        $("#edit_last_name").jqxInput({
+        $("#edit_end_date").jqxDateTimeInput({
             theme: "<?php echo $widget_style; ?>", 
             width: 300,
-            height: 25,
-            placeHolder: "Last Name"
+            height: 25
         });        
         
-        $("#edit_admin").jqxCheckBox({
+        $("#edit_status").jqxCheckBox({
             theme: "<?php echo $widget_style; ?>", 
             width: 120, 
             height: 25 
@@ -184,12 +185,10 @@
 
         $("#edit_campaign_form").jqxValidator({
             rules: [
-                {input: "#edit_name", message: "Username is required.", action: "keyup", rule: "required"},
-                {input: "#edit_last_name", message: "Last Name is required.", action: "keyup", rule: "required"},
-                {input: "#edit_first_name", message: "First Name is required.", action: "keyup", rule: "required"}
+                {input: "#edit_name", message: "Username is required.", action: "keyup", rule: "required"}
             ],
             onError: function() { flash("All required fields must be filled out correctly."); },
-            onSuccess: function() { editUser(); }
+            onSuccess: function() { editCampaign(); }
         });
 
         $("#edit_campaign_cancel").on("click", function (event) {
@@ -221,14 +220,58 @@
             theme: "<?php echo $widget_style; ?>"
         });
 		
-	addNewButton.on("click", function (event) {
-            flash("We will add a new Campaign!");
-	});
+	addNewButton.on("click", addNewButtonClick);
 
-        toggleActiveButton.on("click", function (event) {
-            setActiveCampaign();
-            console.log(event);
+        toggleActiveButton.on("click", setActiveCampaign);
+    }
+    
+    function addNewButtonClick(event) {
+        $('#edit_campaign').jqxWindow({title: "Add Campaign"});
+        $("#edit_name").val("");
+        $("#edit_status").jqxCheckBox({checked: false});
+        $("#edit_dare").jqxCheckBox({checked: false});
+        $("#edit_name").focus();
+        $('#edit_campaign').jqxWindow("open");
+
+        // Rules slightly different between adding and editing.
+        $("#edit_campaign_form").jqxValidator({
+            rules: [
+                {input: "#edit_name", message: "Name is required.", action: "keyup", rule: "required"}
+            ],
+            onError: function() { flash("All required fields must be filled out correctly."); },
+            onSuccess: addCampaign 
         });
+    }
+    
+    function addCampaign() {
+        $.ajax({
+            url: "db/campaign_add.php",
+            dataType: "json",
+            type: "POST",
+            data: {
+                name: $("#edit_name").val(),
+                start_date: $("#edit_start_date").jqxDateTimeInput("getText"),
+                end_date: $("#edit_end_date").jqxDateTimeInput("getText"),
+                status: $("#edit_status").jqxCheckBox("checked"),
+                dare: $("#edit_dare").jqxCheckBox("checked")
+            },
+            success: onAddSuccess,
+            error: onAddError,
+            complete: onDbActionComplete
+        });
+    }
+    
+    function onAddSuccess(data, status, xhr) {
+        flash(data.msg);
+    }
+
+    function onAddError(xhr, status, error) {
+        flash(status);
+    }
+
+    function onDbActionComplete(xhr, status) {
+        $("#edit_campaign").jqxWindow("close");
+        $("#campaigns_table").jqxDataTable("updateBoundData");
     }
     
     function setActiveCampaign() {
