@@ -122,13 +122,44 @@
 		
         $("#campaigns_table").on("rowDoubleClick", function (event) {
             var row = event.args.row;
-            flash("You will be editing - " + row.name);
+            $('#edit_campaign').jqxWindow({title: "Edit Campaign - " + row.name});
+            $("#edit_id").val(row.id);
+            $("#edit_name").val(row.name);
+            getCampaignDates(row.id);
+            $("#edit_status").jqxCheckBox({checked: row.status === 1 });
+            $("#edit_dare").jqxCheckBox({checked: row.dare === 1 });
+            $("#edit_name").focus();
+            $('#edit_campaign').jqxWindow("open");
+
+            // Rules slightly different between adding and editing.
+            $("#edit_campaign_form").jqxValidator({
+                rules: [
+                    {input: "#edit_name", message: "Name is required.", action: "keyup", rule: "required"}
+                ],
+                onError: function() { flash("All required fields must be filled out correctly."); },
+                onSuccess: editCampaign 
+            });
         });
 
         createEditCampaign();
     }
 
     var selectedId = 0;
+    
+    function getCampaignDates (id) {
+        $.ajax({
+            url: "db/campaign_get_dates.php",
+            dataType: "json",
+            type: "POST",
+            data: {
+                id: id
+            },
+            success: function (data, status, xhr) {
+                $("#edit_start_date").jqxDateTimeInput("setDate", new Date(data.start_date));
+                $("#edit_end_date").jqxDateTimeInput("setDate", new Date(data.end_date));
+            }
+        });
+    }
 
     function createEditCampaign() {
         $('#edit_campaign').jqxWindow({ 
@@ -183,14 +214,6 @@
             height: '25'
         });
 
-        $("#edit_campaign_form").jqxValidator({
-            rules: [
-                {input: "#edit_name", message: "Username is required.", action: "keyup", rule: "required"}
-            ],
-            onError: function() { flash("All required fields must be filled out correctly."); },
-            onSuccess: function() { editCampaign(); }
-        });
-
         $("#edit_campaign_cancel").on("click", function (event) {
             $("#edit_campaign").jqxWindow("close");
         });
@@ -203,8 +226,10 @@
     function renderToolbar(toolbar) {
         var container = $("<div style='overflow: hidden; position: relative; height: 100%; width: 100%;'></div>");
 	var addNewButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Add New Campaign</div></div>");
+        var deleteButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Delete Campaign</div></div>");
         var toggleActiveButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Toggle Active</div></div>");
 	container.append(addNewButton);
+        container.append(deleteButton);
         container.append(toggleActiveButton);
 	toolbar.append(container);
 	
@@ -213,6 +238,12 @@
             width: 130,
             theme: "<?php echo $widget_style; ?>"
 	});
+        
+        deleteButton.jqxButton({
+            height: 20,
+            width: 115,
+            theme: "<?php echo $widget_style; ?>"
+        });
 
         toggleActiveButton.jqxButton({
             height: 20,
@@ -221,7 +252,7 @@
         });
 		
 	addNewButton.on("click", addNewButtonClick);
-
+        deleteButton.on("click", deleteButtonClick);
         toggleActiveButton.on("click", setActiveCampaign);
     }
     
@@ -290,5 +321,55 @@
     function handleSetActiveCampaignSuccess(data, textStatus, xhr) {
         var response = $.parseJSON(data);
         if (response.success) window.location.reload(false);
+    }
+    
+    function deleteButtonClick(event) {
+        $("#dialog").jqxWindow({ title: "Warning!"});
+        $("#dialog_content").html("Are you sure you want to delete this campaign? " +  
+                                    "This action cannot be undone. " + 
+                                    "Click OK if you want to delete the user " + 
+                                    "and Cancel to back out.");
+        $("#dialog").on("close", function(event) { deleteCampaign(event, selectedId);});
+        $("#dialog").jqxWindow("open");
+    }
+    
+    function deleteCampaign(event, id) {
+        if (id === 0) {
+            flash("You must select a Campaign to delete.");
+            return;
+        }
+
+        if (event.type === "close" && event.args.dialogResult.OK) {
+            $.ajax({
+                url: "db/campaign_delete.php",
+                dataType: "json",
+                type: "POST",
+                data: {
+                    campaign_id: id
+                },
+                success: onAddSuccess,
+                error: onAddError,
+                complete: onDbActionComplete
+            });
+        }   
+    }
+    
+    function editCampaign() {
+        $.ajax({
+            url: "db/campaign_edit.php",
+            dataType: "json",
+            type: "POST",
+            data: {
+                id: $("#edit_id").val(),
+                name: $("#edit_name").val(),
+                start_date: $("#edit_start_date").jqxDateTimeInput("getText"),
+                end_date: $("#edit_end_date").jqxDateTimeInput("getText"),
+                status: $("#edit_status").jqxCheckBox("checked"),
+                dare: $("#edit_dare").jqxCheckBox("checked")
+            },
+            success: onAddSuccess,
+            error: onAddError,
+            complete: onDbActionComplete
+        });
     }
 </script>
