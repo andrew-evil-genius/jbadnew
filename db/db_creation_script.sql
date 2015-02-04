@@ -150,7 +150,7 @@ CREATE TABLE `lead_address` (
   `state_id` int(11) NOT NULL,
   `zip` varchar(5) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -159,7 +159,7 @@ CREATE TABLE `lead_address` (
 
 LOCK TABLES `lead_address` WRITE;
 /*!40000 ALTER TABLE `lead_address` DISABLE KEYS */;
-INSERT INTO `lead_address` VALUES (1,7,'1 Desert Way','','Tacoma',43,'37814'),(2,8,'1 Some Street','','Somewhere',43,'33383'),(3,12,'Street Name','','Morristown',43,'37814'),(4,9,'47 Bob Street, Unit 42','ATTN: Bubblegum Pirate','Morristown',43,'17814'),(5,10,'','','Morristown',43,'37814'),(6,11,'Some Street','','Newport',43,'37814');
+INSERT INTO `lead_address` VALUES (1,7,'1 Desert Way','','Tacoma',43,'37814'),(2,8,'1 Some Street','','Somewhere',43,'33383'),(3,12,'Street Name','','Morristown',43,'37814'),(4,9,'47 Bob Street, Unit 42','ATTN: Bubblegum Pirate','Morristown',43,'17814'),(5,10,'','','Morristown',43,'37814'),(6,11,'Some Street','','Newport',43,'37814'),(7,2,'89 Coatbridge Crescent','','Cape Town',1,'South'),(8,1,'LaLa Avenue','','Morristown',43,'37814');
 /*!40000 ALTER TABLE `lead_address` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -175,7 +175,7 @@ CREATE TABLE `lead_email` (
   `lead_id` int(11) NOT NULL,
   `email` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,7 +184,7 @@ CREATE TABLE `lead_email` (
 
 LOCK TABLES `lead_email` WRITE;
 /*!40000 ALTER TABLE `lead_email` DISABLE KEYS */;
-INSERT INTO `lead_email` VALUES (1,8,'guy@newcompany.com'),(2,9,'barker@alwaysright.com'),(3,10,'Frank@wallace.com');
+INSERT INTO `lead_email` VALUES (1,8,'guy@newcompany.com'),(2,9,'barker@alwaysright.com'),(3,10,'Frank@wallace.com'),(4,2,'andrew@opengatefellowship.org'),(5,1,'test@gmail.com');
 /*!40000 ALTER TABLE `lead_email` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -201,7 +201,7 @@ CREATE TABLE `lead_notes` (
   `note` varchar(500) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -210,7 +210,7 @@ CREATE TABLE `lead_notes` (
 
 LOCK TABLES `lead_notes` WRITE;
 /*!40000 ALTER TABLE `lead_notes` DISABLE KEYS */;
-INSERT INTO `lead_notes` VALUES (1,10,'This is a test Note.  It is not very interesting.','2014-10-09 14:14:09'),(2,10,'Another of these test notes.  Still not very interesting but we are making it longer just because we can.','2014-10-09 14:14:09'),(3,10,'â€‹â€‹I\'m going to type in another note. &nbsp;Just for fun, you know. &nbsp;We have to test out this crap after all.<br>','2014-10-09 14:58:34'),(4,10,'â€‹â€‹I\'m going to type in <span style=\"font-weight: bold; text-decoration: underline;\">another </span>note. &nbsp;Just for fun, you know. &nbsp;We have to test out this crap after all.<br>','2014-10-09 14:58:47'),(5,10,'Blah','2014-10-09 14:59:50'),(6,10,'Blah Again!','2014-10-09 15:00:09'),(7,10,'â€‹[09-Oct-2014 14:04:36 Europe/Berlin] PHP Notice: &nbsp;Undefined variable: db in C:xampphtdocsjb-newdbleads_edit_functions.php on line 10<br><br>','2014-10-09 15:02:02'),(8,9,'<div>â€‹Look!!! &nbsp;<span style=\"font-weight: bold;\">A note!</span></div>','2014-10-10 11:16:49'),(9,11,'â€‹jqxMaskedInput represents a jQuery input widget which uses a mask to distinguish between proper and improper user input. You can define phone number, ssn, zip code, dates, etc. masks by setting the jqxMaskedInput mask property.&nbsp;<br><br><div>Every UI widget from jQWidgets toolkit needs its JavaScript files to be included in order to work properly.<br></div>','2014-10-10 11:51:10'),(10,8,'<div>â€‹This is a cool note.</div>','2014-10-10 13:14:33');
+INSERT INTO `lead_notes` VALUES (1,10,'This is a test Note.  It is not very interesting.','2014-10-09 14:14:09'),(2,10,'Another of these test notes.  Still not very interesting but we are making it longer just because we can.','2014-10-09 14:14:09'),(3,10,'â€‹â€‹I\'m going to type in another note. &nbsp;Just for fun, you know. &nbsp;We have to test out this crap after all.<br>','2014-10-09 14:58:34'),(4,10,'â€‹â€‹I\'m going to type in <span style=\"font-weight: bold; text-decoration: underline;\">another </span>note. &nbsp;Just for fun, you know. &nbsp;We have to test out this crap after all.<br>','2014-10-09 14:58:47'),(5,10,'Blah','2014-10-09 14:59:50'),(6,10,'Blah Again!','2014-10-09 15:00:09'),(7,10,'â€‹[09-Oct-2014 14:04:36 Europe/Berlin] PHP Notice: &nbsp;Undefined variable: db in C:xampphtdocsjb-newdbleads_edit_functions.php on line 10<br><br>','2014-10-09 15:02:02'),(8,9,'<div>â€‹Look!!! &nbsp;<span style=\"font-weight: bold;\">A note!</span></div>','2014-10-10 11:16:49'),(9,11,'â€‹jqxMaskedInput represents a jQuery input widget which uses a mask to distinguish between proper and improper user input. You can define phone number, ssn, zip code, dates, etc. masks by setting the jqxMaskedInput mask property.&nbsp;<br><br><div>Every UI widget from jQWidgets toolkit needs its JavaScript files to be included in order to work properly.<br></div>','2014-10-10 11:51:10'),(10,8,'<div>â€‹This is a cool note.</div>','2014-10-10 13:14:33'),(11,1,'<div>â€‹Blah... blah blah</div>','2015-02-04 14:18:32');
 /*!40000 ALTER TABLE `lead_notes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -226,7 +226,7 @@ CREATE TABLE `lead_phone` (
   `lead_id` int(11) NOT NULL,
   `phone` varchar(15) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -235,7 +235,7 @@ CREATE TABLE `lead_phone` (
 
 LOCK TABLES `lead_phone` WRITE;
 /*!40000 ALTER TABLE `lead_phone` DISABLE KEYS */;
-INSERT INTO `lead_phone` VALUES (1,11,'(423)555-1234'),(2,8,'(325)698-5487'),(3,9,'(112)452-3654'),(4,10,'(865)443-4986'),(5,12,'(423) 512-4589');
+INSERT INTO `lead_phone` VALUES (1,11,'(423)555-1234'),(2,8,'(325)698-5487'),(3,9,'(112)452-3654'),(4,10,'(865)443-4986'),(5,12,'(423) 512-4589'),(6,2,'(555)555-5555'),(7,1,'(452)653-2589');
 /*!40000 ALTER TABLE `lead_phone` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -337,7 +337,7 @@ CREATE TABLE `leads` (
 
 LOCK TABLES `leads` WRITE;
 /*!40000 ALTER TABLE `leads` DISABLE KEYS */;
-INSERT INTO `leads` VALUES (1,'Test Company','Bob',1,1,1,'building',29),(2,'Another Test Company','Papa John',1,1,1,'Pizza',29),(3,'One More Test Company','Bill Joe Tom Bob Parker',14,4,4,'Who knows?',29),(8,'Acme','Good Guy',8,2,5,'Widgets',25),(9,'Price Is Right','Bob Barker',4,3,1,'Give stuff away',25),(10,'Wallace Hardware','Frank Rowe',1,1,1,'Hardware distribution',25),(11,'The Grease Rack','Sam Smith',1,1,1,'Restaurant',25);
+INSERT INTO `leads` VALUES (1,'Test Company','Bob',2,1,1,'building',29),(2,'Another Test Company','Papa John',1,4,3,'Pizza',29),(3,'One More Test Company','Bill Joe Tom Bob Parker',14,4,4,'Who knows?',29),(8,'Acme','Good Guy',8,2,5,'Widgets',25),(9,'Price Is Right','Bob Barker',4,3,1,'Give stuff away',25),(10,'Wallace Hardware','Frank Rowe',1,1,1,'Hardware distribution',25),(11,'The Grease Rack','Sam Smith',1,1,1,'Restaurant',25);
 /*!40000 ALTER TABLE `leads` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -481,7 +481,7 @@ CREATE TABLE `sales` (
 
 LOCK TABLES `sales` WRITE;
 /*!40000 ALTER TABLE `sales` DISABLE KEYS */;
-INSERT INTO `sales` VALUES (1,1,200,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(2,2,300,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(3,3,250,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(4,4,500,'0000-00-00 00:00:00','0000-00-00 00:00:00');
+INSERT INTO `sales` VALUES (1,1,1200,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(2,2,500,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(3,3,250,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(4,4,500,'0000-00-00 00:00:00','0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `sales` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -660,7 +660,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `login` (`username`),
   UNIQUE KEY `PhoneNumber` (`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=43411 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=43412 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -669,7 +669,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (43408,'acooper','073016eae1f0161489c047f20e7ad4b5','andrew.evil.genius@gmail.com','Andrew','Cooper','',NULL,NULL,NULL,NULL,NULL,'2014-09-13 01:24:38',1,0,NULL,1,0,29,NULL,NULL),(43410,'andrewc','073016eae1f0161489c047f20e7ad4b5','andrew@opengatefellowship.org','Andrew','Cooper','JB Ads','89 Coatbridge Crescent','','Morristown','TN','37814','2014-09-26 13:50:57',1,0,'4234380502',0,1,25,29,'2014-09-26 11:50:00');
+INSERT INTO `users` VALUES (43408,'acooper','073016eae1f0161489c047f20e7ad4b5','andrew.evil.genius@gmail.com','Andrew','Cooper','',NULL,NULL,NULL,NULL,NULL,'2014-09-13 01:24:38',1,0,NULL,1,0,29,NULL,NULL),(43410,'andrewc','073016eae1f0161489c047f20e7ad4b5','andrew@opengatefellowship.org','Andrew','Cooper','JB Ads','89 Coatbridge Crescent','','Morristown','TN','37814','2014-09-26 13:50:57',1,0,'4234380502',0,1,25,29,'2014-09-26 11:50:00'),(43411,'kevin','5f4dcc3b5aa765d61d8327deb882cf99','ksoutherland@jbadvertising.com','Kevin','Southerland','',NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00',0,0,NULL,0,0,1,NULL,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -682,4 +682,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-04  8:31:32
+-- Dump completed on 2015-02-04 17:08:38
