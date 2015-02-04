@@ -1,6 +1,6 @@
 *** DONE *** Create campaign_edit.php
 *** DONE *** On Leads screen.  Hook up the sales numbers correctly.
-Add the Edit Leads functionality.
+*** DONE *** Add the Edit Leads functionality.
 Add Sales and Collectors roles.
     Sales should see only Campaigns and Leads assigned to them.
     Collectors should see any Campaigns with sales in them.

@@ -26,91 +26,112 @@ $zip = filter_input(INPUT_GET, "zip");
 
 // Update main information.
 $sql = "update leads 
-		set name = '$company_name', 
-			contact_name = '$contact_name', 
-			line_of_business = '$line_of_business', 
-			status_id = $status,
-			type_id = $type,
-			stage_id = $stage,
-			amount = $amount
-		where id = $lead_id";
+        set name = '$company_name', 
+            contact_name = '$contact_name', 
+            line_of_business = '$line_of_business', 
+            status_id = $status,
+            type_id = $type,
+            stage_id = $stage
+        where id = $lead_id";
 
 $result = $db->query($sql);
 
 $response = array();
 if ($result) {
-	$response["success"] = true;
-	$response["msg"] = "Lead Updated.";
+    $response["success"] = true;
+    $response["msg"] = "Lead Updated.";
 }
 
 // Update Address information
 if ($address_1 != "" || $address_2 != "" || $city != "" || $zip != "") {
-	$sql = "select id from lead_address where lead_id = $lead_id";
-	$result = $db->query($sql);
+    $sql = "select id from lead_address where lead_id = $lead_id";
+    $result = $db->query($sql);
 
-	if ($result && $result->num_rows > 0) {
-		$sql = "update lead_address 
-				set line_1 = '$address_1',
-					line_2 = '$address_2',
-					city = '$city',
-					state_id = $state,
-					zip = '$zip'
-				where lead_id = $lead_id";
-	} else {
-		$sql = "insert into lead_address
-				(lead_id, line_1, line_2, city, state_id, zip) 
-				values ($lead_id, '$address_1', '$address_2', '$city', $state, '$zip')";
-	}
-	$result = $db->query($sql);
+    if ($result && $result->num_rows > 0) {
+        $sql = "update lead_address 
+                set line_1 = '$address_1',
+                    line_2 = '$address_2',
+                    city = '$city',
+                    state_id = $state,
+                    zip = '$zip'
+                where lead_id = $lead_id";
+    } else {
+        $sql = "insert into lead_address
+                (lead_id, line_1, line_2, city, state_id, zip) 
+                values ($lead_id, '$address_1', '$address_2', '$city', $state, '$zip')";
+    }
+    $result = $db->query($sql);
 
-	if (!$result) {
-		$result["success"] = false;
-		$response["msg"] = "Failed to update address information.";
-	}	
+    if (!$result) {
+        $result["success"] = false;
+        $response["msg"] = "Failed to update address information.";
+    }	
 }
 
 // Update Phone information.
 if ($phone != "") {
-	$sql = "select id from lead_phone where lead_id = $lead_id";
-	$result = $db->query($sql);
+    $sql = "select id from lead_phone where lead_id = $lead_id";
+    $result = $db->query($sql);
 
-	if ($result && $result->num_rows > 0) {
-		$sql = "update lead_phone 
-				set phone = '$phone'
-				where lead_id = $lead_id";
-	} else {
-		$sql = "insert into lead_phone
-				(lead_id, phone) 
-				values ($lead_id, '$phone')";
-	}
-	$result = $db->query($sql);
+    if ($result && $result->num_rows > 0) {
+        $sql = "update lead_phone 
+                set phone = '$phone'
+                where lead_id = $lead_id";
+    } else {
+        $sql = "insert into lead_phone
+                (lead_id, phone) 
+                values ($lead_id, '$phone')";
+    }
+    $result = $db->query($sql);
 
-	if (!$result) {
-		$result["success"] = false;
-		$response["msg"] = "Failed to update phone information.";
-	}	
+    if (!$result) {
+        $result["success"] = false;
+        $response["msg"] = "Failed to update phone information.";
+    }	
 }
 
 // Update Phone information.
 if ($email != "") {
-	$sql = "select id from lead_email where lead_id = $lead_id";
-	$result = $db->query($sql);
+    $sql = "select id from lead_email where lead_id = $lead_id";
+    $result = $db->query($sql);
 
-	if ($result && $result->num_rows > 0) {
-		$sql = "update lead_email 
-				set email = '$email'
-				where lead_id = $lead_id";
-	} else {
-		$sql = "insert into lead_email
-				(lead_id, email) 
-				values ($lead_id, '$email')";
-	}
-	$result = $db->query($sql);
+    if ($result && $result->num_rows > 0) {
+        $sql = "update lead_email 
+                set email = '$email'
+                where lead_id = $lead_id";
+    } else {
+        $sql = "insert into lead_email
+                (lead_id, email) 
+                values ($lead_id, '$email')";
+    }
+    $result = $db->query($sql);
 
-	if (!$result) {
-		$result["success"] = false;
-		$response["msg"] = "Failed to update email information.";
-	}	
+    if (!$result) {
+        $result["success"] = false;
+        $response["msg"] = "Failed to update email information.";
+    }	
+}
+
+// Update Sales Amount.
+if ($amount != "") {
+    $sql = "select id from sales where lead_id = $lead_id";
+    $result = $db->query($sql);
+
+    if ($result && $result->num_rows > 0) {
+        $sql = "update sales 
+                set amount = $amount
+                where lead_id = $lead_id";
+    } else {
+        $sql = "insert into sales
+                (lead_id, email) 
+                values ($lead_id, $amount)";
+    }
+    $result = $db->query($sql);
+
+    if (!$result) {
+        $result["success"] = false;
+        $response["msg"] = "Failed to update sales amount information.";
+    }	
 }
 
 echo json_encode($response);
