@@ -8,11 +8,12 @@ if (!$db) {
 	exit;
 }
 
-$sql = "select l.id, l.name as company_name, l.contact_name, l.amount, lp.phone, ls.status 
-		from leads as l 
-		inner join lead_status as ls on l.status_id = ls.id 
-		left join lead_phone as lp on l.id = lp.lead_id 
-		where l.campaign_id = ".$_SESSION["curr_campaign_id"];
+$sql = "select l.id, l.name as company_name, l.contact_name, s.amount, lp.phone, ls.status 
+        from leads as l 
+        inner join lead_status as ls on l.status_id = ls.id 
+        left join lead_phone as lp on l.id = lp.lead_id
+        left join sales as s on s.lead_id = l.id 
+        where l.campaign_id = ".$_SESSION["curr_campaign_id"];
 $result = $db->query($sql);
 
 $list = array();
