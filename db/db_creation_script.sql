@@ -54,15 +54,11 @@ CREATE TABLE `campaigns` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(55) CHARACTER SET latin1 NOT NULL DEFAULT 'No Campaign Name',
   `status` tinyint(4) NOT NULL DEFAULT '1',
-  `fname` varchar(55) CHARACTER SET latin1 NOT NULL,
-  `lname` varchar(55) CHARACTER SET latin1 NOT NULL,
-  `email` varchar(255) CHARACTER SET latin1 NOT NULL,
-  `phone` varchar(10) CHARACTER SET latin1 NOT NULL,
   `startdate` date NOT NULL,
   `enddate` date NOT NULL,
   `dare` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,7 +67,7 @@ CREATE TABLE `campaigns` (
 
 LOCK TABLES `campaigns` WRITE;
 /*!40000 ALTER TABLE `campaigns` DISABLE KEYS */;
-INSERT INTO `campaigns` VALUES (1,'No Campaign Set',0,'','','','','0000-00-00','0000-00-00',0),(2,'TEST-1',0,'don','lowery','delowery@gmail.com','5202221122','2013-08-26','2013-08-29',0),(3,'TEST-2',0,'suzi','shoemaker','suzi@somewhere.net','5202221111','2013-08-26','2013-09-02',0),(4,'TEST-3',0,'don','lowery','don@noesisgroup.com','5202221234','2013-08-26','2013-09-02',0),(5,'Liberty Co. TX',0,'Terri','Fairchild','terri.fairchild@co.liberty.tx.us','8302342322','2008-01-13','0000-00-00',0),(6,'test6',0,'Don','Lo','','520-307-04','2013-09-18','2013-09-30',1),(7,'2014 NCDOA Waxhaw',0,'Michael','Adkins','madkins@ncdare.org','336-695-93','0000-00-00','0000-00-00',1),(8,'2014 NCDOA Monroe',0,'Adkins','Michael','madkins@ncdare.org','3366949311','2013-10-16','2013-10-30',1),(9,'2014 Reidsville NCPD',0,'OFC','MCNEILL','Dmcneill@ci.reidsville.nc.us','3363491010','2013-10-31','2013-11-08',1),(10,'2014 NCDOA Watauga',0,'Mike','Adkins','jamey@jbadvertisingllc.com','3366949311','2013-11-13','2013-12-06',1),(11,'Nassau Co. FL',0,'Lisa','McCumber','lmccumber@nassauso.com','904-451-63','2013-12-03','2013-12-31',1),(12,'2014 Burleson PD Explorer',0,'Darin','Pool','info@jbadvertisingllc.com','8174269962','2014-01-13','2014-01-27',0),(13,'2015 NCDOA BURLINGTON',0,'MIKE','ATKINS','INFO@JBADVERTISNINGLLC.COM','4234234123','2014-01-28','2014-02-24',1),(14,'2015 Paducah Explorer',0,'Paul ','Stevenson','info@jbadvertisingllc.com','4234234234','2014-02-11','2014-02-25',0),(15,'2015 Frankfort, KY P.D.',0,'William','King','wking@frankfort.ky.gov','502-875-85','2014-03-03','2014-04-01',0),(16,'2015 Pickens, Sc Explorers',0,'Elijah','Chapman','info@jbadvertisingllc.com','8648985539','2014-03-11','2014-03-25',0),(17,'TEST-4',0,'joe','joe','joe@joe.com','1231231234','2014-03-12','2014-03-19',0),(18,'2015 Richland Co.',0,'Arlene','Sharpe','scdare@rcsd.net','803-309-16','2014-03-24','2014-04-30',1),(19,'2015 Anderson Explorers',0,'Jasmine  ','Deluna','jdeluna@CITYOFANDERSONSC.com','4238393539','2014-04-07','2014-04-14',0),(20,'2015 Powder Springs Explorers',0,'Jody','Mathews','info@jbadvertisingllc.com','7704808955','2014-04-10','2014-04-17',0),(21,'2015 Gastonia, NC Explorers',0,'Amy','Hawkins','info@jbadvertisingllc.com','7048666702','2014-04-22','2014-05-12',0),(22,'2015 Midland County',0,'Ede','Subia','info@jbadvertisingllc.com','4323521253','2014-05-07','2014-06-25',1),(23,'2015 Chester County',0,'Dewayne','Robinson','info@jbadvertisingllc.com','(803) 581-','2014-06-13','2014-06-20',1),(24,'2015 Calhoun Co.',0,'Sheriff','Summers','info@jbadvertisingllc.com','8038742741','2014-07-25','2014-07-31',1),(25,'2015 Barnwell County',0,'Ed','Carroll','info@jbadvertisingllc.com','(803) 541-','2014-07-31','2014-08-07',1),(26,'2015 Liberty County',0,'kevin','southerland','infor@usa.com','4234231234','2014-08-06','2014-08-13',1),(27,'2015 Hampton County',0,'Justin','Edwards','info@jbadvertisingllc.com','8039142200','2014-08-08','2014-08-13',1),(28,'2015 Griffin Ga PD',0,'Morris','Heaton','info@jbadvertisingllc.com','(770) 229-','2014-08-11','2014-08-25',1),(29,'2015 York Co.',1,'Biily Bob','Thornton','Info@jbadvertisingllc.com','7578903653','2014-09-02','2014-09-23',0);
+INSERT INTO `campaigns` VALUES (23,'2015 Chester County',0,'2014-06-13','2014-06-20',1),(24,'2015 Calhoun Co.',0,'2014-07-25','2014-07-31',1),(25,'2015 Barnwell County',0,'2014-07-31','2014-08-07',1),(26,'2015 Liberty County',0,'2014-08-06','2014-08-13',1),(27,'2014 Hampton County',1,'2015-04-02','2015-04-02',1),(28,'2015 Griffin Ga PD',0,'2014-08-11','2014-08-25',1),(29,'2015 York Co.',1,'2014-09-02','2014-09-23',0),(33,'2015 Hamblen Co.',1,'2015-04-02','2015-04-02',1);
 /*!40000 ALTER TABLE `campaigns` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -331,7 +327,6 @@ CREATE TABLE `leads` (
   `stage_id` int(11) NOT NULL,
   `line_of_business` varchar(100) NOT NULL,
   `campaign_id` int(11) NOT NULL,
-  `amount` decimal(10,2) NOT NULL DEFAULT '0.00',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -342,7 +337,7 @@ CREATE TABLE `leads` (
 
 LOCK TABLES `leads` WRITE;
 /*!40000 ALTER TABLE `leads` DISABLE KEYS */;
-INSERT INTO `leads` VALUES (1,'Test Company','Bob',1,1,1,'building',29,212.50),(2,'Another Test Company','Papa John',1,1,1,'Pizza',29,2465.12),(3,'One More Test Company','Bill Joe Tom Bob Parker',14,4,4,'Who knows?',29,452.00),(4,'Blah','Blah',1,1,1,'Blah',29,365.00),(5,'Acme','Wile E. Coyote',7,1,1,'Explosive Devices',29,653.00),(6,'blarg','bibbity bobbity boo',5,1,1,'',29,895.00),(7,'Taco Bell','Billy Burrito',5,1,1,'Food-like Substances',29,125.00),(8,'Acme','Good Guy',8,2,5,'Widgets',25,200.45),(9,'Price Is Right','Bob Barker',4,3,1,'Give stuff away',25,32548.00),(10,'Wallace Hardware','Frank Rowe',1,1,1,'Hardware distribution',25,632.57),(11,'The Grease Rack','Sam Smith',1,1,1,'Restaurant',25,120.00);
+INSERT INTO `leads` VALUES (1,'Test Company','Bob',1,1,1,'building',29),(2,'Another Test Company','Papa John',1,1,1,'Pizza',29),(3,'One More Test Company','Bill Joe Tom Bob Parker',14,4,4,'Who knows?',29),(8,'Acme','Good Guy',8,2,5,'Widgets',25),(9,'Price Is Right','Bob Barker',4,3,1,'Give stuff away',25),(10,'Wallace Hardware','Frank Rowe',1,1,1,'Hardware distribution',25),(11,'The Grease Rack','Sam Smith',1,1,1,'Restaurant',25);
 /*!40000 ALTER TABLE `leads` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -461,6 +456,33 @@ LOCK TABLES `projects` WRITE;
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
 INSERT INTO `projects` VALUES (1,2,1,'CRM Implementation','CRM (SugarCRM?) integrated with SalesGenie for Call-based marketing company','2013-08-09 21:02:14','2013-08-09 21:02:14','0000-00-00 00:00:00'),(2,3,1,'Affiliate Web Site','Setup & Host affiliate marketing website\r\n\r\n','2013-08-10 19:03:57','2013-08-10 19:03:57','0000-00-00 00:00:00'),(4,93,1,'test','test','2013-09-15 22:47:03','2013-09-15 22:47:03','0000-00-00 00:00:00'),(5,97,1,'7-11 acct 1','1','2013-09-16 22:47:25','2013-09-16 22:47:25','0000-00-00 00:00:00'),(6,1,1,'don1','test',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sales`
+--
+
+DROP TABLE IF EXISTS `sales`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sales` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `lead_id` int(11) NOT NULL,
+  `amount` decimal(10,0) NOT NULL DEFAULT '0',
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sales`
+--
+
+LOCK TABLES `sales` WRITE;
+/*!40000 ALTER TABLE `sales` DISABLE KEYS */;
+INSERT INTO `sales` VALUES (1,1,200,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(2,2,300,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(3,3,250,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(4,4,500,'0000-00-00 00:00:00','0000-00-00 00:00:00');
+/*!40000 ALTER TABLE `sales` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -647,7 +669,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'don','$2a$10$CuTfUjbvG3tMWYuZ2KHADeFqVLnVkyikRDEuSnDiyKidwjXED1Y8a','don@noesisgroup.com','Don','Test','','','','','','','0000-00-00 00:00:00',1,0,'5203070458',1,0,26,0,'2013-09-05 03:38:00'),(2,'kevin','e691829a7f36fe47f4bb24cc8e7e2680','kevin@jbadvertisingllc.com','Kevin','Southerland','JB Advertising, LLC.','1234 W 1st','','Knoxville','TN','','2013-08-09 08:49:02',0,0,'4238393539',0,0,2,0,'0000-00-00 00:00:00'),(3,'dtest2','3ce64eb5bd03521be96e7f7a538f808e','donlowery@hotmail.com','Don','Test2','',NULL,NULL,NULL,NULL,NULL,'2014-04-29 01:09:36',9998,0,NULL,3,0,2,NULL,'2014-04-30 09:03:57'),(177,'ajenkins','$2y$10$SRpAtDEdzL0/6VU.lOscYO1KJqpzFnJvd0YstKC77KG4d6VbBfzRa','aj@aj.com','Alan','Jenkins','AJ\'s Market','1212 E 12th','','Tucson','','85716','2013-08-25 03:51:25',0,1,'5205551212',0,9998,2,0,'2014-04-30 09:08:54'),(178,'jsouther','cee5649cd6b6af2d89f86509d9b84f43','jamey@jbadvertisingllc.com','Jamey','Southerland','',NULL,NULL,NULL,NULL,NULL,'2013-08-25 08:53:09',1,0,NULL,1,0,18,0,'2013-09-20 15:58:55'),(179,'ksuth1','551d70d3d890dad5a515d925b1bda918','kevin@jbadvertisingllc.com','Kelvenator','Southerland','','','','','DE','12456','2013-08-25 08:54:14',1,1,NULL,1,0,21,0,'2013-09-20 15:58:55'),(180,'rhill','0efc81acef4e6dd3644ae2ef7680e455','russcatt@gmail.com','Russell','Hill','',NULL,NULL,NULL,NULL,NULL,'2013-08-25 08:58:51',2,0,NULL,2,0,28,0,'2013-10-10 15:03:50'),(181,'kcollections','0efc81acef4e6dd3644ae2ef7680e455','kevin@jbadvertisingllc.com','Kevin','Southerland','',NULL,NULL,NULL,NULL,NULL,'2013-08-25 09:01:34',9998,0,NULL,3,0,28,0,'0000-00-00 00:00:00'),(2294,'ksales1','0efc81acef4e6dd3644ae2ef7680e455','kevin@jbadadvertisingllc.com','Kevin','Sales','',NULL,NULL,NULL,NULL,NULL,'2013-10-09 10:29:15',2,0,NULL,2,0,29,NULL,'2013-10-10 15:04:51'),(2295,'jsales1','0efc81acef4e6dd3644ae2ef7680e455','jamey@jbadadvertisingllc.com','Jamey','Sales','',NULL,NULL,NULL,NULL,NULL,'2013-10-09 10:29:41',2,0,NULL,2,0,29,NULL,'2013-10-10 15:05:01'),(2394,'dkuhns','0efc81acef4e6dd3644ae2ef7680e455','dougkuhns@gmail.com','Doug','Kuhns','',NULL,NULL,NULL,NULL,NULL,'2013-10-10 08:23:29',2,0,NULL,2,0,20,NULL,'2013-10-10 16:01:52'),(3088,'joe','e691829a7f36fe47f4bb24cc8e7e2680','joetest@noesisgroup.com','Joe','Test','',NULL,NULL,NULL,NULL,NULL,'2013-10-11 01:06:49',2,0,NULL,2,0,7,NULL,'2013-10-11 17:16:32'),(7604,'jcollections1','0efc81acef4e6dd3644ae2ef7680e455','jamey@jbadvertisingllc.com','Jamey','Southerland','',NULL,NULL,NULL,NULL,NULL,'2013-11-03 04:05:47',9998,0,NULL,3,0,28,NULL,'2014-06-19 21:31:44'),(13196,'Mdenson','e691829a7f36fe47f4bb24cc8e7e2680','michael.r.denson@gmail.com','Mike','Denson','',NULL,NULL,NULL,NULL,NULL,'2014-01-13 10:19:36',9998,0,NULL,3,0,29,NULL,'2014-06-19 21:31:59'),(13197,'12Comfort Suites999','9dd4e461268c8034f5c8564e155c67a6','123@123.com','Mitch','Patel','Comfort Suites','321 S. BURLESON BLVD','','Burleson','TX','76028','2014-01-14 01:41:11',0,179,'8174266666',0,0,NULL,NULL,NULL),(15090,'msales1','e691829a7f36fe47f4bb24cc8e7e2680','michael.r.denson@gmail.com','Mike','Denson','',NULL,NULL,NULL,NULL,NULL,'2014-01-31 12:20:19',2,0,NULL,2,0,28,NULL,'2014-01-31 18:15:11'),(23326,'cdubose','e691829a7f36fe47f4bb24cc8e7e2680','cdubose@gmail.com','Corey','Dubose','',NULL,NULL,NULL,NULL,NULL,'2014-03-10 09:32:48',9998,0,NULL,3,0,16,NULL,'2014-06-19 21:32:08'),(24924,'Ksales2','551d70d3d890dad5a515d925b1bda918','kevin@jbadvertisingllc.com','Kevin','Southerland','',NULL,NULL,NULL,NULL,NULL,'2014-03-24 03:12:31',2,0,NULL,2,2294,18,NULL,'2014-03-25 17:58:51'),(36239,'donCollect','3ce64eb5bd03521be96e7f7a538f808e','donCollect@noesisgroup.com','Don','Collections','',NULL,NULL,NULL,NULL,NULL,'2014-06-19 05:47:02',9998,0,NULL,3,0,NULL,NULL,NULL),(38475,'22jbconstruction22','e10adc3949ba59abbe56e057f20f883e','joe@joe.com','joe','','jb construction','123 usa st','','Morristown','TN','37813','2014-07-17 11:34:34',0,179,'8004908979',0,0,22,NULL,NULL),(38773,'11whitman&sondrywall','827ccb0eea8a706c4c34a16891f84e7b','123@123.com','kay','whitman','Whitman & Sons Drywall','421 harahan blvd.','','paducah','KY','42001','2014-07-22 08:16:20',0,1,'4234231234',0,0,14,NULL,NULL),(41293,'balley','e691829a7f36fe47f4bb24cc8e7e2680','info@jbadvertisingllc.com','Brian','Alley','',NULL,NULL,NULL,NULL,NULL,'2014-08-10 05:49:16',9998,0,NULL,3,0,26,NULL,NULL),(42381,'99longstartrucking99','e10adc3949ba59abbe56e057f20f883e','info@jbadvertisingllc.com','Steve','Sanchez','Long Star Trucking','903 W. Industrial','','Midland ','TX','79701','2014-08-19 09:20:24',0,1,'4323522971',0,0,22,NULL,NULL),(43408,'acooper','073016eae1f0161489c047f20e7ad4b5','andrew.evil.genius@gmail.com','Andrew','Cooper','',NULL,NULL,NULL,NULL,NULL,'2014-09-13 01:24:38',1,0,NULL,1,0,28,NULL,NULL),(43410,'andrewc','073016eae1f0161489c047f20e7ad4b5','andrew@opengatefellowship.org','Andrew','Cooper','JB Ads','89 Coatbridge Crescent','','Morristown','TN','37814','2014-09-26 13:50:57',1,0,'4234380502',0,1,25,29,'2014-09-26 11:50:00');
+INSERT INTO `users` VALUES (43408,'acooper','073016eae1f0161489c047f20e7ad4b5','andrew.evil.genius@gmail.com','Andrew','Cooper','',NULL,NULL,NULL,NULL,NULL,'2014-09-13 01:24:38',1,0,NULL,1,0,29,NULL,NULL),(43410,'andrewc','073016eae1f0161489c047f20e7ad4b5','andrew@opengatefellowship.org','Andrew','Cooper','JB Ads','89 Coatbridge Crescent','','Morristown','TN','37814','2014-09-26 13:50:57',1,0,'4234380502',0,1,25,29,'2014-09-26 11:50:00');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -660,4 +682,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-01-31 14:34:24
+-- Dump completed on 2015-02-04  8:31:32
