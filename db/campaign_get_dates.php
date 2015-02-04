@@ -10,7 +10,7 @@ if (!$db) {
 
 $id = filter_input(INPUT_POST, "id");
 
-$sql = "select start_date, end_date from campaigns where id = $id";
+$sql = "select startdate, enddate from campaigns where id = $id";
 
 $result = $db->query($sql);
 $response = array();
@@ -18,8 +18,8 @@ $response = array();
 if ($result) {
     $row = $result->fetch_assoc();
     $response["success"] = true;
-    $response["start_date"] = $row["start_date"];
-    $response["end_date"] = $row["end_date"];
+    $response["start_date"] = $row["startdate"];
+    $response["end_date"] = $row["enddate"];
 } else {
     $response["success"] = false;
     $response["start_date"] = date("Y-m-d");

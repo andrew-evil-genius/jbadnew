@@ -9,7 +9,7 @@ if (!$db) {
     exit;
 }
 
-$sql = "select c.id, c.name, c.status, c.dare, sum(s.amount) as total_sales
+$sql = "select c.id, c.name, c.status, c.dare, c.startdate, c.enddate, sum(s.amount) as total_sales
 	from campaigns as c
 	left join leads as l on c.id = l.campaign_id
         left join sales as s on s.lead_id = l.id

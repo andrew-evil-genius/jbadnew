@@ -74,7 +74,9 @@
                 { name: 'name', type: 'string' },
                 { name: 'total_sales', type: 'float' },
                 { name: 'status', type: 'int' },
-                { name: 'dare', type: 'int' }
+                { name: 'dare', type: 'int' },
+                { name: 'startdate', type: 'string' },
+                { name: 'enddate', type: 'string' }
             ],
             root: "campaigns",
             url: "db/campaign_list.php"
@@ -111,7 +113,9 @@
                 { text: 'Campaign Name', dataField: 'name', width: 250 },
                 { text: 'Status', dataField: 'status', width: 50 },
                 { text: 'Dare', dataField: 'dare', width: 50 },
-                { text: 'Total Sales', dataField: 'total_sales', cellsFormat: 'c2' },
+                { text: 'Start Date', dataField: 'startdate', width: 100 },
+                { text: 'End Date', dataField: 'enddate', width: 100 },
+                { text: 'Total Sales', dataField: 'total_sales', cellsFormat: 'c2' }
                 
             ]
         });
