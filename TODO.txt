@@ -8,3 +8,6 @@ Add Sales and Collectors roles.
     Only Admin should see Users screen.
     My Account page should allow user to edit personal profile information.
     Only Admin should see Settings screen.
+Import Campaign from previous Campaign.
+Import Campaign from file.
+Create collections report.

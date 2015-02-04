@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `jbadnew` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `jbadnew`;
+-- CREATE DATABASE  IF NOT EXISTS `jbadnew` /*!40100 DEFAULT CHARACTER SET latin1 */;
+-- USE `jbadnew`;
 -- MySQL dump 10.13  Distrib 5.5.41, for debian-linux-gnu (x86_64)
 --
 -- Host: 127.0.0.1    Database: jbadnew
