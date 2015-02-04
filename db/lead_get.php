@@ -32,4 +32,3 @@ if ($result) {
 }
 
 echo json_encode($response);
-?>

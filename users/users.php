@@ -6,7 +6,7 @@
 <!-- This is the div block for the edit user Window -->
 <div id='edit_user'>
     <div>Edit User</div>
-    <div>
+    <div id="edit_user_container">
         <form id="edit_user_form">
             <input id="edit_id" type="hidden" />
             <table cellpadding="5" cellspacing="5">
@@ -279,6 +279,7 @@
         $("#edit_email").val("");
         $("#edit_admin").jqxCheckBox({checked: false});
         $("#edit_username").focus();
+        $("#edit_user_container").show();
         $('#edit_user').jqxWindow("open");
 
         // Rules slightly different between adding and editing.

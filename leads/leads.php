@@ -3,7 +3,7 @@
 
 <div id='edit_lead'>
     <div>Edit Lead</div>
-    <div>
+    <div id="edit_lead_container" style="display: none">
         <form id="edit_lead_form">
             <input id="edit_id" type="hidden" />
             <table cellpadding="5" cellspacing="5">
@@ -222,6 +222,7 @@
         $("#edit_type").jqxDropDownList("selectIndex", 0);
         $("#edit_state").jqxDropDownList("selectIndex", 42);
         $("#edit_name").focus();
+        $("#edit_lead_container").show();
         $('#edit_lead').jqxWindow("open");
 
         // Rules slightly different between adding and editing.

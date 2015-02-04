@@ -4,7 +4,7 @@
 <!-- This is the div block for the edit user Window -->
 <div id='edit_campaign'>
     <div>Edit Campaign</div>
-    <div>
+    <div id="edit_campaign_container">
         <form id="edit_campaign_form">
             <input id="edit_id" type="hidden" />
             <table cellpadding="5" cellspacing="5">
@@ -266,6 +266,7 @@
         $("#edit_status").jqxCheckBox({checked: false});
         $("#edit_dare").jqxCheckBox({checked: false});
         $("#edit_name").focus();
+        $("#edit_campaign_container").show();
         $('#edit_campaign').jqxWindow("open");
 
         // Rules slightly different between adding and editing.
