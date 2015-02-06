@@ -27,6 +27,7 @@ $result = $db->query($sql);
 if ($result) {
     $user = $result->fetch_assoc();
     if (md5($password) == $user["password"]) {
+        $_SESSION["user_id"] = $user["id"];
         $_SESSION["username"] = filter_input(INPUT_POST, "username");
         $_SESSION["user"] = $user["user"];
         $_SESSION["roles"] = $user["roles"];

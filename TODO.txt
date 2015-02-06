@@ -7,7 +7,8 @@ Add Sales and Collectors roles.
     *** DONE *** Change login to set Roles instead of Admin.
     *** DONE *** Create common function checkRole(roleToCheck). It should check the required role against the Session variable.
     *** DONE *** Fix other screens to use Roles instead of Admin.
-    Sales should see only Campaigns and Leads assigned to them.
+    *** DONE *** Sales should see only Campaigns assigned to them
+    Sales should only see Leads assigned to them.
     Collectors should see any Campaigns with sales in them.
     Only Admin should see Users screen.
     My Account page should allow user to edit personal profile information.

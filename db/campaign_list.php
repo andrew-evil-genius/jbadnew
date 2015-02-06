@@ -9,11 +9,14 @@ if (!$db) {
     exit;
 }
 
-$sql = "select c.id, c.name, c.status, c.dare, c.startdate, c.enddate, sum(s.amount) as total_sales
+$sql = "select c.id, c.name, c.status, c.dare, c.startdate, c.enddate, l.user_id, sum(s.amount) as total_sales
 	from campaigns as c
 	left join leads as l on c.id = l.campaign_id
-        left join sales as s on s.lead_id = l.id
-	group by c.id";
+        left join sales as s on s.lead_id = l.id "
+        .getWhereClause($_SESSION["roles"]).
+	"group by c.id";
+
+error_log($sql);
 
 $result = $db->query($sql);
 
@@ -31,3 +34,9 @@ if ($result) {
 }
 
 echo json_encode($response);
+
+function getWhereClause($roles) {
+    if (strpos($roles, "sales") !== false) {
+        return "left join users as u on u.id = l.user_id where l.user_id = ".$_SESSION["user_id"]." ";
+    }
+}
