@@ -21,11 +21,6 @@ $result = $db->query($sql);
 $list = array();
 
 while ($item = $result->fetch_assoc()) {
-	if (strpos($item["roles"], "admin") > -1) {
-            $item["admin"] = true;
-	} else {
-            $item["admin"] = false;
-	}
 	$list[] = $item;
 }
 

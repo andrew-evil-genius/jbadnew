@@ -37,8 +37,14 @@
                 </tr>
                 <tr>
                     <td>
-                        <div id='edit_admin'>
+                        <div id='edit_roles_admin'>
                             Admin?
+                        </div>
+                        <div id='edit_roles_sales'>
+                            Sales?
+                        </div>
+                        <div id='edit_roles_collections'>
+                            Collections?
                         </div>
                     </td>
                 </tr>
@@ -62,7 +68,7 @@
 <script type="text/javascript" src="js/jqwidgets/jqxdropdownlist.js"></script> 
 <script type="text/javascript" src="js/jqwidgets/jqxlistbox.js"></script> 
 <script type="text/javascript" src="js/jqwidgets/jqxinput.js"></script>
-<script type="text/javascript" src="js/jqwidgets/jqxcheckbox.js"></script>
+<script type="text/javascript" src="js/jqwidgets/jqxradiobutton.js"></script>
 <script type="text/javascript" src="js/jqwidgets/jqxpasswordinput.js"></script>
 
 <script type="text/javascript">
@@ -76,7 +82,7 @@
                 { name: 'first_name', type: 'string' },
                 { name: 'last_name', type: 'string' },
                 { name: 'email', type: 'string' },
-                { name: 'admin', type: 'boolean' }
+                { name: 'roles', type: 'string' }
             ],
             url: "db/user_list.php"
         };
@@ -97,25 +103,25 @@
 
         // Set up the Main User Table
         $("#users_table").jqxDataTable({
-        	theme: "<?php echo $widget_style; ?>",
+            theme: "<?php echo $widget_style; ?>",
             width: 750,
             pageable: true,
             pagerButtonsCount: 10,
             source: dataAdapter,
             columnsResize: true,
-			sortable: true,
-			showToolbar: checkRole("admin"),
-			renderToolbar: renderToolbar,
-			altRows: true,
+            sortable: true,
+            showToolbar: checkRole("admin"),
+            renderToolbar: renderToolbar,
+            altRows: true,
             filterable: true,
-			filterMode: "advanced",
+            filterMode: "advanced",
             columns: [
                 { text: 'ID', dataField: 'id', width: 50, filterable: false, hidden: true },
                 { text: 'Userame', dataField: 'username', width: 200 },
                 { text: 'Last Name', dataField: 'last_name', width: 100 },
                 { text: 'First Name', dataField: 'first_name', width: 100 },
                 { text: 'Email', dataField: 'email' },
-                { text: 'Admin', dataField: 'admin', width: 50 }
+                { text: 'Role', dataField: 'roles', width: 50 }
             ]
         });
 		
@@ -132,7 +138,7 @@
             $("#edit_first_name").val(row.first_name);
             $("#edit_last_name").val(row.last_name);
             $("#edit_email").val(row.email);
-            $("#edit_admin").jqxCheckBox({checked: row.admin});
+            setRoleRadioButton(row.roles);
             $("#edit_username").focus();
             $('#edit_user').jqxWindow("open");
 
@@ -164,11 +170,21 @@
 
     var selectedId = 0;
 
+    function setRoleRadioButton(role) {
+        if (role.indexOf("admin") > -1) {
+            $("#edit_roles_admin").jqxRadioButton("check");
+        } else if (role.indexOf("sales") > -1) {
+            $("#edit_roles_sales").jqxRadioButton("check");
+        } else {
+            $("#edit_roles_collections").jqxRadioButton("check");
+        }
+    }
+    
     function createEditUser() {
         $('#edit_user').jqxWindow({ 
             theme: "<?php echo $widget_style; ?>", 
             width: 320,
-            height: 270, 
+            height: 315, 
             resizable: false,
             isModal: true,
             autoOpen: false
@@ -209,7 +225,19 @@
             placeHolder: "Email"
         });
 
-        $("#edit_admin").jqxCheckBox({
+        $("#edit_roles_admin").jqxRadioButton({
+            theme: "<?php echo $widget_style; ?>", 
+            width: 120, 
+            height: 25 
+        });
+        
+        $("#edit_roles_sales").jqxRadioButton({
+            theme: "<?php echo $widget_style; ?>", 
+            width: 120, 
+            height: 25 
+        });
+        
+        $("#edit_roles_collections").jqxRadioButton({
             theme: "<?php echo $widget_style; ?>", 
             width: 120, 
             height: 25 
@@ -277,7 +305,7 @@
         $("#edit_first_name").val("");
         $("#edit_last_name").val("");
         $("#edit_email").val("");
-        $("#edit_admin").jqxCheckBox({checked: false});
+        $("#edit_roles_sales").jqxRadioButton({checked: true});
         $("#edit_username").focus();
         $("#edit_user_container").show();
         $('#edit_user').jqxWindow("open");
@@ -308,12 +336,18 @@
                 first_name: $("#edit_first_name").val(),
                 last_name: $("#edit_last_name").val(),
                 email: $("#edit_email").val(),
-                admin: $("#edit_admin").jqxCheckBox("checked")
+                roles: setRolesValues()
             },
             success: onEditUserSuccess,
             error: onEditUserError,
             complete: onDbActionComplete
         });
+    }
+    
+    function setRolesValues() {
+        if ($("#edit_roles_admin").jqxRadioButton("checked")) return "admin";
+        if ($("#edit_roles_sales").jqxRadioButton("checked")) return "sales";
+        if ($("#edit_roles_collections").jqxRadioButton("checked")) return "collections";
     }
 
     function editUser() {
@@ -327,7 +361,7 @@
                 first_name: $("#edit_first_name").val(),
                 last_name: $("#edit_last_name").val(),
                 email: $("#edit_email").val(),
-                admin: $("#edit_admin").jqxCheckBox("checked")
+                roles: setRolesValues()
             },
             success: onEditUserSuccess,
             error: onEditUserError,
