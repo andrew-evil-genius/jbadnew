@@ -1,5 +1,5 @@
--- CREATE DATABASE  IF NOT EXISTS `jbadnew` /*!40100 DEFAULT CHARACTER SET latin1 */;
--- USE `jbadnew`;
+CREATE DATABASE  IF NOT EXISTS `jbadnew` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `jbadnew`;
 -- MySQL dump 10.13  Distrib 5.5.41, for debian-linux-gnu (x86_64)
 --
 -- Host: 127.0.0.1    Database: jbadnew
@@ -649,7 +649,6 @@ CREATE TABLE `users` (
   `state` char(2) DEFAULT NULL,
   `zip` char(5) DEFAULT NULL,
   `created` datetime NOT NULL,
-  `admin` int(11) NOT NULL DEFAULT '0',
   `owner` int(4) NOT NULL DEFAULT '0',
   `phone` varchar(10) DEFAULT NULL,
   `acl` tinyint(4) NOT NULL DEFAULT '0',
@@ -657,6 +656,7 @@ CREATE TABLE `users` (
   `campaign` int(11) DEFAULT '1',
   `orig_campaign` int(11) DEFAULT NULL,
   `Sales_LCTS` timestamp NULL DEFAULT NULL,
+  `roles` varchar(100) NOT NULL DEFAULT 'sales',
   PRIMARY KEY (`id`),
   UNIQUE KEY `login` (`username`),
   UNIQUE KEY `PhoneNumber` (`phone`)
@@ -669,7 +669,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (43408,'acooper','073016eae1f0161489c047f20e7ad4b5','andrew.evil.genius@gmail.com','Andrew','Cooper','',NULL,NULL,NULL,NULL,NULL,'2014-09-13 01:24:38',1,0,NULL,1,0,29,NULL,NULL),(43410,'andrewc','073016eae1f0161489c047f20e7ad4b5','andrew@opengatefellowship.org','Andrew','Cooper','JB Ads','89 Coatbridge Crescent','','Morristown','TN','37814','2014-09-26 13:50:57',1,0,'4234380502',0,1,25,29,'2014-09-26 11:50:00'),(43411,'kevin','5f4dcc3b5aa765d61d8327deb882cf99','ksoutherland@jbadvertising.com','Kevin','Southerland','',NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00',0,0,NULL,0,0,1,NULL,NULL);
+INSERT INTO `users` VALUES (43408,'acooper','073016eae1f0161489c047f20e7ad4b5','andrew.evil.genius@gmail.com','Andrew','Cooper','',NULL,NULL,NULL,NULL,NULL,'2014-09-13 01:24:38',0,NULL,1,0,29,NULL,NULL,'admin'),(43410,'andrewc','073016eae1f0161489c047f20e7ad4b5','andrew@opengatefellowship.org','Andrew','Cooper','JB Ads','89 Coatbridge Crescent','','Morristown','TN','37814','2014-09-26 13:50:57',0,'4234380502',0,1,25,29,'2014-09-26 11:50:00','sales'),(43411,'kevin','5f4dcc3b5aa765d61d8327deb882cf99','ksoutherland@jbadvertising.com','Kevin','Southerland','',NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00',0,NULL,0,0,1,NULL,NULL,'sales');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -682,4 +682,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-04 17:08:38
+-- Dump completed on 2015-02-06 21:27:21
