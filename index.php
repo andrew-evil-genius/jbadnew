@@ -5,7 +5,7 @@ require_once "db/db.php";
 session_start();
 $debug = true;
 $authorized = array_key_exists("username", $_SESSION) ? true : false;
-$admin = array_key_exists("admin", $_SESSION) ? $_SESSION["admin"] : false;
+$roles = array_key_exists("roles", $_SESSION) ? $_SESSION["roles"] : "";
 $flash = array_key_exists("flash", $_SESSION) ? $_SESSION["flash"] : false;
 $page = filter_input(INPUT_GET, "page") == null ? "home" : filter_input(INPUT_GET, "page");
 $sidebar = filter_input(INPUT_GET, "side") == null ? $page."_sidebar" : filter_input(INPUT_GET, "side");
@@ -99,10 +99,10 @@ if ($authorized) {
 
 <!-- Start index.php javascript -->
     <script content-type="text/javascript">
-	var isAdmin = <?php echo ($admin == 1 ? "true" : "false"); ?>;
-	
+	var roles = "<?php echo $roles; ?>";
+        
 	$(document).ready(function() {
-            if (typeof(contentReady) != "undefined") {
+            if (typeof(contentReady) !== "undefined") {
                 contentReady();
             }
 
@@ -138,6 +138,10 @@ if ($authorized) {
             $("#sidebar_bottom").fadeOut(5000);
         }
 
+        function checkRole(role) {
+            if (roles.indexOf(role) > -1) return true;
+            return false;
+        }
     </script>
 <!-- End index.php javascript -->
 </body>
@@ -155,7 +159,5 @@ function checkActiveLink($link, $page) {
     if ($link == $page) {
 	return "class='active'";
     }
-	
-    return "";
-	
+    return "";	
 }

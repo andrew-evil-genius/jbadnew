@@ -104,7 +104,7 @@
             source: dataAdapter,
             columnsResize: true,
 			sortable: true,
-			showToolbar: isAdmin,
+			showToolbar: checkRole("admin"),
 			renderToolbar: renderToolbar,
 			altRows: true,
             filterable: true,

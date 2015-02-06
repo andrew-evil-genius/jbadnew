@@ -14,10 +14,10 @@ $password = md5(filter_input(INPUT_GET, "password"));
 $fname = filter_input(INPUT_GET, "first_name");
 $lname = filter_input(INPUT_GET, "last_name");
 $email = filter_input(INPUT_GET, "email");
-$admin = filter_input(INPUT_GET, "admin") == "true" ? 1 : 0;
+$roles = filter_input(INPUT_GET, "roles");
 
-$sql = "insert into users (username, password, fname, lname, email, admin) 
-		values ('$username', '$password', '$fname', '$lname', '$email', $admin)";
+$sql = "insert into users (username, password, fname, lname, email, roles) 
+		values ('$username', '$password', '$fname', '$lname', '$email', '$roles')";
 
 $result = $db->query($sql);
 

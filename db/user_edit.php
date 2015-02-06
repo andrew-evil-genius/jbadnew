@@ -14,7 +14,7 @@ $username = filter_input(INPUT_GET, "username");
 $fname = filter_input(INPUT_GET, "first_name");
 $lname = filter_input(INPUT_GET, "last_name");
 $email = filter_input(INPUT_GET, "email");
-$admin = filter_input(INPUT_GET, "admin") == "true" ? 1 : 0;
+$roles = filter_input(INPUT_GET, "roles");
 
 $password_sql = "";
 $editPassword = array_key_exists("password", $_GET);
@@ -29,13 +29,13 @@ if ($editPassword) {
 }
 
 $sql = "update users set 
-			username = '$username', 
-			$password_sql
-			fname = '$fname', 
-			lname = '$lname', 
-			email = '$email', 
-			admin = $admin 
-		where id = $id";
+            username = '$username', 
+            $password_sql
+            fname = '$fname', 
+            lname = '$lname', 
+            email = '$email', 
+            roles = '$roles' 
+        where id = $id";
 $result = $db->query($sql);
 
 if ($result) {
