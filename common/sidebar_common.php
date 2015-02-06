@@ -3,8 +3,9 @@
 </h1>
 <br>
 <ul>
-<?php if ($_SESSION["admin"]) { ?>
+<?php error_log("CheckRole: ".checkRole("admin")); ?>
+<?php if (checkRole("admin")): ?>
 	<li> Administrator </li>
-<?php } ?>
+<?php endif; ?>
 	<li> Campaign: <?php echo $_SESSION["curr_campaign"]; ?>
 </ul>

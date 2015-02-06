@@ -5,7 +5,8 @@ function encrypt_password($password) {
 }
 
 function checkRole($role) {
-    if (strpos($_SESSION["roles"], $role)) {
+    $roles = array_key_exists("roles", $_SESSION) ? $_SESSION["roles"] : "";
+    if (strpos($roles, $role) > -1) {
         return true;
     }
     return false;

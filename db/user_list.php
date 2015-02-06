@@ -1,5 +1,6 @@
 <?php
 require_once "db.php";
+require_once "../common/functions.php";
 
 session_start();
 if (!$db) {
@@ -9,24 +10,23 @@ if (!$db) {
 }
 
 $sql = "select id, 
-			username, 
-			fname as first_name,
-			lname as last_name, 
-			email, 
-			admin 
-		from users";
+            username, 
+            fname as first_name,
+            lname as last_name, 
+            email, 
+            roles 
+        from users";
 $result = $db->query($sql);
 
 $list = array();
 
 while ($item = $result->fetch_assoc()) {
-	if ($item["admin"] == 0) {
-		$item["admin"] = false;
+	if (strpos($item["roles"], "admin") > -1) {
+            $item["admin"] = true;
 	} else {
-		$item["admin"] = true;
+            $item["admin"] = false;
 	}
 	$list[] = $item;
 }
 
 echo json_encode($list);
-?>

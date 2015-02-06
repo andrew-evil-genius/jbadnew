@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <?php 
 require_once "db/db.php";
+require_once "common/functions.php";
 
 session_start();
 $debug = true;
@@ -11,6 +12,7 @@ $page = filter_input(INPUT_GET, "page") == null ? "home" : filter_input(INPUT_GE
 $sidebar = filter_input(INPUT_GET, "side") == null ? $page."_sidebar" : filter_input(INPUT_GET, "side");
 $nav = filter_input(INPUT_GET, "nav") == null ? $page : filter_input(INPUT_GET, "nav");
 $widget_style = "classic";
+
 ?>
 <!-- Header -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
