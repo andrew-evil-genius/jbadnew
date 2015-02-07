@@ -16,8 +16,6 @@ $sql = "select c.id, c.name, c.status, c.dare, c.startdate, c.enddate, l.user_id
         .getWhereClause($_SESSION["roles"]).
 	"group by c.id";
 
-error_log($sql);
-
 $result = $db->query($sql);
 
 $response = array();

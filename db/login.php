@@ -37,7 +37,6 @@ if ($result) {
     } else {
         $_SESSION["flash"] = "Username / Password inccorect.";
     }
-    error_log(json_encode($_SESSION));
     $result->close();
 }
 $db->close();

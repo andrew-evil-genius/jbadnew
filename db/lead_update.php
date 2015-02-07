@@ -123,9 +123,10 @@ if ($amount != "") {
                 where lead_id = $lead_id";
     } else {
         $sql = "insert into sales
-                (lead_id, email) 
+                (lead_id, amount) 
                 values ($lead_id, $amount)";
     }
+    error_log($sql);
     $result = $db->query($sql);
 
     if (!$result) {

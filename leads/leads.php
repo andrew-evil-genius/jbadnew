@@ -122,10 +122,10 @@
             pagerButtonsCount: 10,
             source: dataAdapter,
             columnsResize: true,
-			sortable: true,
-			showToolbar: checkRole("admin"),
-			renderToolbar: renderToolbar,
-			altRows: true,
+            sortable: true,
+            showToolbar: checkRole("admin"),
+            renderToolbar: renderToolbar,
+            altRows: true,
             filterable: true,
 			filterMode: "advanced",
             columns: [
@@ -142,10 +142,10 @@
             selectedId = event.args.row.id;
         });
 		
-		$("#leads_table").on("rowDoubleClick", function (event) {
-			var row = event.args.row;
-			window.location = "index.php?page=leads_edit&side=leads_edit_sidebar&nav=leads&id=" + row.id;
-		});
+        $("#leads_table").on("rowDoubleClick", function (event) {
+            var row = event.args.row;
+            window.location = "index.php?page=leads_edit&side=leads_edit_sidebar&nav=leads&id=" + row.id;
+        });
 
         createEditLead();
     }

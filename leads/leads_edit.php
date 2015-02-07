@@ -51,14 +51,12 @@ $lead_id = filter_input(INPUT_GET, "id");
 			<td width="30%"><input id="edit_city" /></td>
 			<td><div id="edit_state"></div></td>
 			<td><input id="edit_zip" /></td>
-			</td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
 			<td>&nbsp;</td>
 			<td><input type="button" value="Cancel" id='cancel' /></td>
 			<td><input type="button" value="Update" id='update_lead' /></td>
-			</td>
 		</tr>
 	</table>
 	<br>
@@ -110,7 +108,7 @@ $lead_id = filter_input(INPUT_GET, "id");
                     $("#edit_line_of_business").val(lead.line_of_business);
                     $("#edit_phone").val(lead.phone);
                     $("#edit_email").val(lead.email);
-                    $("#edit_amount").val(lead.amount);
+                    $("#edit_amount").val(Number(lead.amount).toFixed(2));
                     $("#edit_address_1").val(lead.line_1);
                     $("#edit_address_2").val(lead.line_2);
                     $("#edit_city").val(lead.city);
