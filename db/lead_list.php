@@ -13,7 +13,9 @@ $sql = "select l.id, l.name as company_name, l.contact_name, s.amount, lp.phone,
         inner join lead_status as ls on l.status_id = ls.id 
         left join lead_phone as lp on l.id = lp.lead_id
         left join sales as s on s.lead_id = l.id 
-        where l.campaign_id = ".$_SESSION["curr_campaign_id"];
+        where l.campaign_id = ".$_SESSION["curr_campaign_id"]." "
+        .getWhereClause($_SESSION["roles"]);
+
 $result = $db->query($sql);
 
 $list = array();
@@ -23,4 +25,9 @@ while ($item = $result->fetch_assoc()) {
 }
 
 echo json_encode($list);
-?>
+
+function getWhereClause($roles) {
+    if (strpos($roles, "sales") !== false) {
+        return "and l.user_id = ".$_SESSION["user_id"]." ";
+    }
+}

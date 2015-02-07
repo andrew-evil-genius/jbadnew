@@ -5,6 +5,10 @@
 <ul>
 <?php if (checkRole("admin")): ?>
 	<li> Administrator </li>
-<?php endif; ?>
+<?php elseif (checkRole("sales")): ?>
+        <li> Sales </li>
+<?php elseif (checkRole("collections")): ?>
+        <li> Collections </li>
+<?php endif; ?>        
 	<li> Campaign: <?php echo $_SESSION["curr_campaign"]; ?>
 </ul>
