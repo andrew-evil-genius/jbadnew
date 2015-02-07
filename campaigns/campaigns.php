@@ -103,7 +103,7 @@
             source: dataAdapter,
             columnsResize: true,
             sortable: true,
-            showToolbar: checkRole("admin"),
+            showToolbar: true,
             renderToolbar: renderToolbar,
             altRows: true,
             filterable: true,
@@ -229,25 +229,34 @@
 	
     function renderToolbar(toolbar) {
         var container = $("<div style='overflow: hidden; position: relative; height: 100%; width: 100%;'></div>");
-	var addNewButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Add New Campaign</div></div>");
-        var deleteButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Delete Campaign</div></div>");
+        
+        if (checkRole("admin")) {
+            var addNewButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Add New Campaign</div></div>");
+            var deleteButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Delete Campaign</div></div>");
+            
+            container.append(addNewButton);
+            container.append(deleteButton);
+        
+            addNewButton.jqxButton({
+                height: 20,
+                width: 130,
+                theme: "<?php echo $widget_style; ?>"
+            });
+
+            deleteButton.jqxButton({
+                height: 20,
+                width: 115,
+                theme: "<?php echo $widget_style; ?>"
+            });
+            
+            addNewButton.on("click", addNewButtonClick);
+            deleteButton.on("click", deleteButtonClick);
+        }
+	
         var toggleActiveButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Toggle Active</div></div>");
-	container.append(addNewButton);
-        container.append(deleteButton);
+	
         container.append(toggleActiveButton);
 	toolbar.append(container);
-	
-	addNewButton.jqxButton({
-            height: 20,
-            width: 130,
-            theme: "<?php echo $widget_style; ?>"
-	});
-        
-        deleteButton.jqxButton({
-            height: 20,
-            width: 115,
-            theme: "<?php echo $widget_style; ?>"
-        });
 
         toggleActiveButton.jqxButton({
             height: 20,
@@ -255,9 +264,7 @@
             theme: "<?php echo $widget_style; ?>"
         });
 		
-	addNewButton.on("click", addNewButtonClick);
-        deleteButton.on("click", deleteButtonClick);
-        toggleActiveButton.on("click", setActiveCampaign);
+	toggleActiveButton.on("click", setActiveCampaign);
     }
     
     function addNewButtonClick(event) {

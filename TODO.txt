@@ -9,7 +9,7 @@ Add Sales and Collectors roles.
     *** DONE *** Fix other screens to use Roles instead of Admin.
     *** DONE *** Sales should see only Campaigns assigned to them
     *** DONE *** Sales should only see Leads assigned to them.
-    Set Campaign toolbar for Sales.
+    *** DONE *** Set Campaign toolbar for Sales.
     Set Leads toolbar for Sales.
     Collectors should see any Campaigns with sales in them.
     Only Admin should see Users screen.
