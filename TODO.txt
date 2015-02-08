@@ -2,7 +2,7 @@
 *** DONE *** On Leads screen.  Hook up the sales numbers correctly.
 *** DONE *** Add the Edit Leads functionality.
 *** DONE *** Hide all the forms when a screen first loads.
-Add Sales and Collectors roles.
+*** DONE *** Add Sales and Collectors roles.
     *** DONE *** Change database Users table to have a Roles column.  "admin|sales|collections"
     *** DONE *** Change login to set Roles instead of Admin.
     *** DONE *** Create common function checkRole(roleToCheck). It should check the required role against the Session variable.
@@ -13,9 +13,7 @@ Add Sales and Collectors roles.
     *** DONE *** Set Leads toolbar for Sales.
     *** DONE *** Collectors should see any Campaigns with sales in them.
     *** DONE *** Collectors should only see Leads with sales in them.
-    Only Admin should see Users screen.
-    My Account page should allow user to edit personal profile information.
-    Only Admin should see Settings screen.
+    *** DONE *** Only Admin should see Users screen.
 Need to be able to set Leads to Campaigns on creation.
 Need to be able to set Users to an initial campaign.
 Import Campaign from previous Campaign.
