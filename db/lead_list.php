@@ -30,4 +30,8 @@ function getWhereClause($roles) {
     if (strpos($roles, "sales") !== false) {
         return "and l.user_id = ".$_SESSION["user_id"]." ";
     }
+    
+    if (strpos($roles, "collections") !== false) {
+        return "and s.amount > 0";
+    }
 }

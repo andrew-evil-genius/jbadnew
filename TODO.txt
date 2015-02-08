@@ -11,7 +11,8 @@ Add Sales and Collectors roles.
     *** DONE *** Sales should only see Leads assigned to them.
     *** DONE *** Set Campaign toolbar for Sales.
     *** DONE *** Set Leads toolbar for Sales.
-    Collectors should see any Campaigns with sales in them.
+    *** DONE *** Collectors should see any Campaigns with sales in them.
+    *** DONE *** Collectors should only see Leads with sales in them.
     Only Admin should see Users screen.
     My Account page should allow user to edit personal profile information.
     Only Admin should see Settings screen.

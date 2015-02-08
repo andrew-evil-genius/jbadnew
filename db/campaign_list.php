@@ -37,4 +37,8 @@ function getWhereClause($roles) {
     if (strpos($roles, "sales") !== false) {
         return "left join users as u on u.id = l.user_id where l.user_id = ".$_SESSION["user_id"]." ";
     }
+    
+    if (strpos($roles, "collections") !== false) {
+        return "where s.amount > 0 ";
+    }
 }
