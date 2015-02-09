@@ -14,8 +14,7 @@
     *** DONE *** Collectors should see any Campaigns with sales in them.
     *** DONE *** Collectors should only see Leads with sales in them.
     *** DONE *** Only Admin should see Users screen.
-Need to be able to set Leads to Campaigns on creation.
-Need to be able to set Users to an initial campaign.
+*** DONE *** Need to be able to set Users to an initial campaign.
 Import Campaign from previous Campaign.
 Import Campaign from file.
 Create collections report.

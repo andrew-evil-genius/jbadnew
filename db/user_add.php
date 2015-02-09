@@ -16,8 +16,8 @@ $lname = filter_input(INPUT_GET, "last_name");
 $email = filter_input(INPUT_GET, "email");
 $roles = filter_input(INPUT_GET, "roles");
 
-$sql = "insert into users (username, password, fname, lname, email, roles) 
-		values ('$username', '$password', '$fname', '$lname', '$email', '$roles')";
+$sql = "insert into users (username, password, fname, lname, email, roles, campaign) 
+		values ('$username', '$password', '$fname', '$lname', '$email', '$roles', ".$_SESSION["curr_campaign_id"].")";
 
 $result = $db->query($sql);
 
