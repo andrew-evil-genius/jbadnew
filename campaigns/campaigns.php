@@ -233,13 +233,21 @@
         if (checkRole("admin")) {
             var addNewButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Add New Campaign</div></div>");
             var deleteButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Delete Campaign</div></div>");
+            var createFromExistingButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Create from Existing</div></div>");
             
             container.append(addNewButton);
+            container.append(createFromExistingButton);
             container.append(deleteButton);
         
             addNewButton.jqxButton({
                 height: 20,
                 width: 130,
+                theme: "<?php echo $widget_style; ?>"
+            });
+            
+            createFromExistingButton.jqxButton({
+                height: 20,
+                width: 135,
                 theme: "<?php echo $widget_style; ?>"
             });
 
@@ -250,6 +258,7 @@
             });
             
             addNewButton.on("click", addNewButtonClick);
+            createFromExistingButton.on("click", createFromExistingButtonClick);
             deleteButton.on("click", deleteButtonClick);
         }
 	
@@ -283,6 +292,24 @@
             ],
             onError: function() { flash("All required fields must be filled out correctly."); },
             onSuccess: addCampaign 
+        });
+    }
+    
+    function createFromExistingButtonClick(event) {
+        $.ajax({
+            url: "db/campaign_create_from_existing.php",
+            dataType: "json",
+            type: "POST",
+            data: {
+                name: $("#edit_name").val(),
+                start_date: $("#edit_start_date").jqxDateTimeInput("getText"),
+                end_date: $("#edit_end_date").jqxDateTimeInput("getText"),
+                status: $("#edit_status").jqxCheckBox("checked"),
+                dare: $("#edit_dare").jqxCheckBox("checked")
+            },
+            success: onAddSuccess,
+            error: onAddError,
+            complete: onDbActionComplete
         });
     }
     
