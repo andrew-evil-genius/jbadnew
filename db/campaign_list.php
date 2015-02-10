@@ -11,11 +11,12 @@ if (!$db) {
 
 $sql = "select c.id, c.name, c.status, c.dare, c.startdate, c.enddate, l.user_id, sum(s.amount) as total_sales
 	from campaigns as c
-	left join leads as l on c.id = l.campaign_id
+        left join leads_campaigns as lc on c.id = lc.campaign_id
+	left join leads as l on l.id = lc.lead_id
         left join sales as s on s.lead_id = l.id "
         .getWhereClause($_SESSION["roles"]).
 	"group by c.id";
-
+        
 $result = $db->query($sql);
 
 $response = array();
