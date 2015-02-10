@@ -13,7 +13,7 @@ $sql = "select c.id, c.name, c.status, c.dare, c.startdate, c.enddate, l.user_id
 	from campaigns as c
         left join leads_campaigns as lc on c.id = lc.campaign_id
 	left join leads as l on l.id = lc.lead_id
-        left join sales as s on s.lead_id = l.id "
+        left join sales as s on s.lead_id = l.id and s.campaign_id = c.id "
         .getWhereClause($_SESSION["roles"]).
 	"group by c.id";
         
