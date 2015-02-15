@@ -296,22 +296,27 @@
     }
     
     function createFromExistingButtonClick(event) {
-        $.ajax({
-            url: "db/campaign_create_from_existing.php",
-            dataType: "json",
-            type: "POST",
-            data: {
-                name: $("#edit_name").val(),
-                start_date: $("#edit_start_date").jqxDateTimeInput("getText"),
-                end_date: $("#edit_end_date").jqxDateTimeInput("getText"),
-                status: $("#edit_status").jqxCheckBox("checked"),
-                dare: $("#edit_dare").jqxCheckBox("checked")
-            },
-            success: onAddSuccess,
-            error: onAddError,
-            complete: onDbActionComplete
+        if (selectedId == 0) {
+            flash("You must select a campaign.");
+            return;
+        }
+
+        $('#edit_campaign').jqxWindow({title: "Add Campaign"});
+        $("#edit_name").val("");
+        $("#edit_status").jqxCheckBox({checked: false});
+        $("#edit_dare").jqxCheckBox({checked: false});
+        $("#edit_name").focus();
+        $("#edit_campaign_container").show();
+        $('#edit_campaign').jqxWindow("open");
+
+        $("#edit_campaign_form").jqxValidator({
+            rules: [
+                {input: "#edit_name", message: "Name is required.", action: "keyup", rule: "required"}
+            ],
+            onError: function() { flash("All required fields must be filled out correctly."); },
+            onSuccess: addFromExistingCampaign 
         });
-    }
+    };
     
     function addCampaign() {
         $.ajax({
@@ -330,6 +335,25 @@
             complete: onDbActionComplete
         });
     }
+
+    function addFromExistingCampaign() {
+        $.ajax({
+            url: "db/campaign_create_from_existing.php",
+            dataType: "json",
+            type: "POST",
+            data: {
+                name: $("#edit_name").val(),
+                start_date: $("#edit_start_date").jqxDateTimeInput("getText"),
+                end_date: $("#edit_end_date").jqxDateTimeInput("getText"),
+                status: $("#edit_status").jqxCheckBox("checked"),
+                dare: $("#edit_dare").jqxCheckBox("checked"),
+                source_campaign: selectedId
+            },
+            success: onAddSuccess,
+            error: onAddError,
+            complete: onDbActionComplete
+        });
+    };
     
     function onAddSuccess(data, status, xhr) {
         flash(data.msg);

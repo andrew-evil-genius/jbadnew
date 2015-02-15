@@ -18,7 +18,8 @@ $sql = "select l.id, l.name as company_name, l.contact_name, l.status_id, l.type
         left join lead_phone as lp on l.id = lp.lead_id
         left join lead_email as le on l.id = le.lead_id
         left join sales as s on s.lead_id = l.id
-        where l.id = $lead_id ";
+        where l.id = $lead_id 
+            and s.campaign_id = ".$_SESSION["curr_campaign_id"];
 
 $result = $db->query($sql);
 
