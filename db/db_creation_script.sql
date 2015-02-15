@@ -326,7 +326,6 @@ CREATE TABLE `leads` (
   `type_id` int(11) NOT NULL,
   `stage_id` int(11) NOT NULL,
   `line_of_business` varchar(100) NOT NULL,
-  `campaign_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
@@ -338,8 +337,32 @@ CREATE TABLE `leads` (
 
 LOCK TABLES `leads` WRITE;
 /*!40000 ALTER TABLE `leads` DISABLE KEYS */;
-INSERT INTO `leads` VALUES (1,'Test Company','Bob',2,1,1,'building',23,43410),(2,'Another Test Company','Papa John',1,4,3,'Pizza',29,1),(3,'One More Test Company','Bill Joe Tom Bob Parker',14,4,3,'Who knows?',29,43410),(8,'Acme','Good Guy',11,2,5,'Widgets',25,43410),(9,'Price Is Right','Bob Barker',4,3,1,'Give stuff away',25,1),(10,'Wallace Hardware','Frank Rowe',1,1,1,'Hardware distribution',25,43410),(11,'The Grease Rack','Sam Smith',1,1,1,'Restaurant',25,1);
+INSERT INTO `leads` VALUES (1,'Test Company','Bob',2,1,1,'building',43408),(2,'Another Test Company','Papa John',1,4,3,'Pizza',1),(3,'One More Test Company','Bill Joe Tom Bob Parker',14,4,3,'Who knows?',43410),(8,'Acme','Good Guy',11,2,5,'Widgets',43410),(9,'Price Is Right','Bob Barker',4,3,1,'Give stuff away',1),(10,'Wallace Hardware','Frank Rowe',1,1,1,'Hardware distribution',43410),(11,'The Grease Rack','Sam Smith',1,1,1,'Restaurant',1);
 /*!40000 ALTER TABLE `leads` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `leads_campaigns`
+--
+
+DROP TABLE IF EXISTS `leads_campaigns`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `leads_campaigns` (
+  `lead_id` int(11) NOT NULL,
+  `campaign_id` int(11) NOT NULL,
+  PRIMARY KEY (`lead_id`,`campaign_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `leads_campaigns`
+--
+
+LOCK TABLES `leads_campaigns` WRITE;
+/*!40000 ALTER TABLE `leads_campaigns` DISABLE KEYS */;
+INSERT INTO `leads_campaigns` VALUES (1,23),(2,29),(3,29),(8,25),(9,25),(10,25),(11,25);
+/*!40000 ALTER TABLE `leads_campaigns` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -472,6 +495,7 @@ CREATE TABLE `sales` (
   `amount` decimal(10,0) NOT NULL DEFAULT '0',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` datetime DEFAULT NULL,
+  `campaign_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -482,7 +506,7 @@ CREATE TABLE `sales` (
 
 LOCK TABLES `sales` WRITE;
 /*!40000 ALTER TABLE `sales` DISABLE KEYS */;
-INSERT INTO `sales` VALUES (1,1,1200,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(2,2,500,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(3,3,600,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(4,4,500,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(5,8,555,'2015-02-07 21:05:47',NULL),(6,10,1200,'2015-02-07 21:06:04',NULL);
+INSERT INTO `sales` VALUES (1,1,1200,'0000-00-00 00:00:00','0000-00-00 00:00:00',23),(2,2,500,'0000-00-00 00:00:00','0000-00-00 00:00:00',29),(3,3,600,'0000-00-00 00:00:00','0000-00-00 00:00:00',29),(5,8,555,'2015-02-07 21:05:47',NULL,25),(6,10,1200,'2015-02-07 21:06:04',NULL,25);
 /*!40000 ALTER TABLE `sales` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -657,7 +681,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (43408,'acooper','073016eae1f0161489c047f20e7ad4b5','andrew.evil.genius@gmail.com','Andrew','Cooper','2014-09-13 01:24:38',29,'admin'),(43410,'andrewc','073016eae1f0161489c047f20e7ad4b5','andrew@opengatefellowship.org','Andrew','Cooper','2014-09-26 13:50:57',25,'sales'),(43411,'kevin','5f4dcc3b5aa765d61d8327deb882cf99','ksoutherland@jbadvertising.com','Kevin','Southerland','0000-00-00 00:00:00',23,'admin'),(43412,'EvilGenius','5f4dcc3b5aa765d61d8327deb882cf99','dthomas@gmail.com','Dylan','Thomas','0000-00-00 00:00:00',25,'collections');
+INSERT INTO `users` VALUES (43408,'acooper','073016eae1f0161489c047f20e7ad4b5','andrew.evil.genius@gmail.com','Andrew','Cooper','2014-09-13 01:24:38',25,'admin'),(43410,'andrewc','073016eae1f0161489c047f20e7ad4b5','andrew@opengatefellowship.org','Andrew','Cooper','2014-09-26 13:50:57',25,'sales'),(43411,'kevin','5f4dcc3b5aa765d61d8327deb882cf99','ksoutherland@jbadvertising.com','Kevin','Southerland','0000-00-00 00:00:00',23,'admin'),(43412,'EvilGenius','5f4dcc3b5aa765d61d8327deb882cf99','dthomas@gmail.com','Dylan','Thomas','0000-00-00 00:00:00',25,'collections');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -670,4 +694,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-08 21:51:23
+-- Dump completed on 2015-02-15 18:01:01
