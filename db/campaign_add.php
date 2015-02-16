@@ -9,11 +9,10 @@ if (!$db) {
 }
 
 $name = filter_input(INPUT_POST, "name");
-$start_date = date_create(filter_input(INPUT_POST, "start_date"));
-$end_date = date_create(filter_input(INPUT_POST, "end_date"));
+$start_date = DateTime::createFromFormat("d/m/Y", filter_input(INPUT_POST, "start_date"));
+$end_date = DateTime::createFromFormat("d/m/Y", filter_input(INPUT_POST, "end_date"));
 $status = filter_input(INPUT_POST, "status");
 $dare = filter_input(INPUT_POST, "dare");
-
 
 $sql = "insert into campaigns (name, startdate, enddate, status, dare) 
 	values ('$name', '".date_format($start_date, "Y-m-d")."', '"
@@ -26,6 +25,6 @@ if ($result) {
 } else {
     $msg = $db->error;
 }
-$response = array("succes" => true, "msg" => $msg);
+$response = array("success" => true, "msg" => $msg);
 
 echo json_encode($response);

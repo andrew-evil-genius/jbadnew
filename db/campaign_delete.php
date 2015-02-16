@@ -13,6 +13,11 @@ $campaign_id = filter_input(INPUT_POST, "campaign_id");
 $sql = "delete from campaigns where id = $campaign_id";
 
 $result = $db->query($sql);
+
+$sql = "delete from leads_campaigns where campaign_id = $campaign_id";
+
+$result = $db->query($sql);
+
 $response = array();
 
 if ($result) {

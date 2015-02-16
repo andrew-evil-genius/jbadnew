@@ -12,13 +12,14 @@ $sql = "select l.id, l.name as company_name, l.contact_name, s.amount, lp.phone,
         from leads as l 
         left join leads_campaigns as lc on lc.lead_id = l.id
         left join campaigns as c on lc.campaign_id = c.id 
-        inner join lead_status as ls on l.status_id = ls.id 
+        inner join lead_status as ls on lc.status_id = ls.id 
         left join lead_phone as lp on l.id = lp.lead_id
         left join sales as s on s.lead_id = l.id and s.campaign_id = c.id 
         where c.id = ".$_SESSION["curr_campaign_id"]." "
         .getWhereClause($_SESSION["roles"]);
 
 $result = $db->query($sql);
+error_log($sql);
 
 $list = array();
 

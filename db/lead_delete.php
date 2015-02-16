@@ -15,6 +15,10 @@ $sql = "delete from leads where id = $id";
 
 $result = $db->query($sql);
 
+$sql = "delete from leads_campaigns where lead_id = $id";
+
+$result = $db->query($sql);
+
 if ($result) {
 	$msg = "Lead deleted.";
 } else {

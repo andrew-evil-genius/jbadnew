@@ -29,7 +29,6 @@ $sql = "update leads
         set name = '$company_name', 
             contact_name = '$contact_name', 
             line_of_business = '$line_of_business', 
-            status_id = $status,
             type_id = $type,
             stage_id = $stage
         where id = $lead_id";
@@ -67,6 +66,13 @@ if ($address_1 != "" || $address_2 != "" || $city != "" || $zip != "") {
         $response["msg"] = "Failed to update address information.";
     }	
 }
+
+// Update Status information.
+$sql = "update leads_campaigns 
+        set status_id = $status 
+        where lead_id = $lead_id 
+            and campaign_id = ".$_SESSION["curr_campaign_id"];
+$result = $db->query($sql);
 
 // Update Phone information.
 if ($phone != "") {
