@@ -126,7 +126,6 @@ if ($amount != "") {
                 (lead_id, amount) 
                 values ($lead_id, $amount)";
     }
-    error_log($sql);
     $result = $db->query($sql);
 
     if (!$result) {

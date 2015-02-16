@@ -21,6 +21,8 @@ $sql = "insert into campaigns (name, startdate, enddate, status, dare)
         .date_format($end_date, "Y-m-d")."', $status, $dare)";
 
 $result = $db->query($sql);
+$destination_campaign = $db->insert_id();
+echo "New id = ".$destination_campaign;
 
 if ($result) {
     $msg = "Campaign added.";
