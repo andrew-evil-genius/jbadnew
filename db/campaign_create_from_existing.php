@@ -27,8 +27,8 @@ $sql = "select lead_id from leads_campaigns where campaign_id = $source_campaign
 $source_leads = $db->query($sql);
 
 while ($row = $source_leads->fetch_assoc()) {
-	$sql = "insert into leads_campaigns (lead_id, campaign_id) 
-			values (".$row["lead_id"].", $destination_campaign)";
+	$sql = "insert into leads_campaigns (lead_id, campaign_id, status_id) 
+			values (".$row["lead_id"].", $destination_campaign, 1)";
 	$insert = $db->query($sql);
 }
 
