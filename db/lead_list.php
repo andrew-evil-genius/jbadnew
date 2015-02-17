@@ -19,7 +19,6 @@ $sql = "select l.id, l.name as company_name, l.contact_name, s.amount, lp.phone,
         .getWhereClause($_SESSION["roles"]);
 
 $result = $db->query($sql);
-error_log($sql);
 
 $list = array();
 

@@ -29,14 +29,19 @@ $lead_id = filter_input(INPUT_GET, "id");
 		<tr>
 			<td>Contact Number:</td>
 			<td><input id="edit_phone" /></td>
-			<td>Amount ($):</td>
-			<td><input id="edit_amount" /></td>
+            <?php if (checkRole("admin")): ?>
+    			<td>Assigned User</td>
+                <td><div id="edit_assigned_user"></div></td>
+            <?php else: ?>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            <?php endif; ?>
 		</tr>
 		<tr>
 			<td>Email:</td>
 			<td><input id="edit_email" /></td>
-			<td>&nbsp;</td>
-			<td>&nbsp;</td>
+			<td>Amount ($):</td>
+            <td><input id="edit_amount" /></td>
 		</tr>
 		<tr>
 			<td>Address:</td>
@@ -103,6 +108,10 @@ $lead_id = filter_input(INPUT_GET, "id");
                     var status = $("#edit_status");
                     var stage = $("#edit_stage");
                     var type = $("#edit_type");
+                    if ($("#edit_assigned_user").length > 0) {
+                        var assignedUser = $("#edit_assigned_user");
+                        assignedUser.jqxDropDownList("selectItem", assignedUser.jqxDropDownList("getItemByValue", lead.user_id));
+                    }
                     $("#edit_name").val(lead.company_name);
                     $("#edit_contact_name").val(lead.contact_name);
                     $("#edit_line_of_business").val(lead.line_of_business);
@@ -199,8 +208,7 @@ $lead_id = filter_input(INPUT_GET, "id");
                 { name: 'id', type: 'integer' },
                 { name: 'status', type: 'string' }
             ],
-            url: "db/leads_status_list.php",
-            async: false
+            url: "db/leads_status_list.php"
         };
 
         var statusDataAdapter = new $.jqx.dataAdapter(statusSource);
@@ -222,8 +230,7 @@ $lead_id = filter_input(INPUT_GET, "id");
                 { name: 'id', type: 'integer' },
                 { name: 'stage', type: 'string' }
             ],
-            url: "db/leads_stage_list.php",
-            async: false
+            url: "db/leads_stage_list.php"
         };
 
         var stageDataAdapter = new $.jqx.dataAdapter(stageSource);        
@@ -245,8 +252,7 @@ $lead_id = filter_input(INPUT_GET, "id");
                 { name: 'id', type: 'integer' },
                 { name: 'type', type: 'string' }
             ],
-            url: "db/leads_type_list.php",
-            async: false
+            url: "db/leads_type_list.php"
         };
 
         var typeDataAdapter = new $.jqx.dataAdapter(typeSource);
@@ -261,6 +267,29 @@ $lead_id = filter_input(INPUT_GET, "id");
             valueMember: "id",
             placeHolder: "Type"
         });
+
+        if ($("#edit_assigned_user").length > 0) {
+            var assignedUserSource = {
+                dataType: "json",
+                dataFields: [
+                    { name: 'id', type: 'integer' },
+                    { name: 'name', type: 'string' }
+                ],
+                url: "db/user_sales_list.php"
+            };
+
+            var assignedUserDataAdapter = new $.jqx.dataAdapter(assignedUserSource);
+
+            $("#edit_assigned_user").jqxDropDownList({
+                theme: "<?php echo $widget_style; ?>", 
+                source: assignedUserDataAdapter,
+                width: 120, 
+                height: 25,
+                displayMember: "name",
+                valueMember: "id",
+                placeHolder: "Sales"
+            });
+        }
 
         $("#edit_address_1").jqxInput({
             theme: "<?php echo $widget_style; ?>", 
@@ -290,8 +319,7 @@ $lead_id = filter_input(INPUT_GET, "id");
                 { name: 'state_name', type: 'string' },
                 { name: 'state_abbr', type: 'string' }
             ],
-            url: "db/state_list.php",
-            async: false
+            url: "db/state_list.php"
         };
 
         var stateDataAdapter = new $.jqx.dataAdapter(stateSource);
@@ -363,7 +391,8 @@ $lead_id = filter_input(INPUT_GET, "id");
                 address_2: $("#edit_address_2").val(),
                 city: $("#edit_city").val(),
                 state: $("#edit_state").val(),
-                zip: $("#edit_zip").val()
+                zip: $("#edit_zip").val(),
+                assigned_user: $("#edit_assigned_user").length > 0 ? $("#edit_assigned_user").val() : 0
             },
             success: updateLeadSuccess,
             error: updateLeadError

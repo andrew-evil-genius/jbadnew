@@ -64,6 +64,11 @@
                 </tr>
                 <tr>
                     <td>
+                        <div id="edit_assigned_user"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         <input type="button" value="Cancel" id='edit_lead_cancel' />
                         <input type="button" value="Submit" id='edit_lead_submit' />
                     </td>
@@ -252,6 +257,7 @@
                 status: $("#edit_status").val(),
                 stage: $("#edit_stage").val(),
                 type: $("#edit_type").val(),
+                assigned_user: $("#edit_assigned_user").val(),
                 campaign: <?php echo $_SESSION["curr_campaign_id"]; ?> 
             },
             success: onEditLeadSuccess,
@@ -277,7 +283,7 @@
         $('#edit_lead').jqxWindow({ 
             theme: "<?php echo $widget_style; ?>", 
             width: 320,
-            height: 425, 
+            height: 460, 
             resizable: false,
             isModal: true,
             autoOpen: false
@@ -332,8 +338,7 @@
                 { name: 'state_name', type: 'string' },
                 { name: 'state_abbr', type: 'string' }
             ],
-            url: "db/state_list.php",
-            async: false
+            url: "db/state_list.php"
         };
 
         var stateDataAdapter = new $.jqx.dataAdapter(stateSource);
@@ -361,8 +366,7 @@
                 { name: 'id', type: 'integer' },
                 { name: 'status', type: 'string' }
             ],
-            url: "db/leads_status_list.php",
-            async: false
+            url: "db/leads_status_list.php"
         };
 
         var statusDataAdapter = new $.jqx.dataAdapter(statusSource);
@@ -374,7 +378,8 @@
             height: 25,
             displayMember: "status",
             valueMember: "id",
-            placeHolder: "Status"
+            placeHolder: "Status",
+            selectedIndex: 0
         });
 
         var stageSource = {
@@ -383,8 +388,7 @@
                 { name: 'id', type: 'integer' },
                 { name: 'stage', type: 'string' }
             ],
-            url: "db/leads_stage_list.php",
-            async: false
+            url: "db/leads_stage_list.php"
         };
 
         var stageDataAdapter = new $.jqx.dataAdapter(stageSource);        
@@ -405,8 +409,7 @@
                 { name: 'id', type: 'integer' },
                 { name: 'type', type: 'string' }
             ],
-            url: "db/leads_type_list.php",
-            async: false
+            url: "db/leads_type_list.php"
         };
 
         var typeDataAdapter = new $.jqx.dataAdapter(typeSource);
@@ -419,6 +422,28 @@
             displayMember: "type",
             valueMember: "id",
             placeHolder: "Type"
+        });
+
+        var assignedUserSource = {
+            dataType: "json",
+            dataFields: [
+                { name: 'id', type: 'integer' },
+                { name: 'name', type: 'string' }
+            ],
+            url: "db/user_sales_list.php"
+        };
+
+        var assignedUserDataAdapter = new $.jqx.dataAdapter(assignedUserSource);
+
+        $("#edit_assigned_user").jqxDropDownList({
+            theme: "<?php echo $widget_style; ?>", 
+            source: assignedUserDataAdapter,
+            width: 120, 
+            height: 25,
+            displayMember: "name",
+            valueMember: "id",
+            placeHolder: "Sales",
+            selectedIndex: 0
         });
 
         $("#edit_lead_cancel").jqxButton({ 

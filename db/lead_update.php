@@ -23,6 +23,8 @@ $address_2 = filter_input(INPUT_GET, "address_2");
 $city = filter_input(INPUT_GET, "city");
 $state = (filter_input(INPUT_GET, "state") == "" ? 43 : filter_input(INPUT_GET, "state"));
 $zip = filter_input(INPUT_GET, "zip");
+$user_id = filter_input(INPUT_GET, "assigned_user");
+$campaign_id = $_SESSION["curr_campaign_id"];
 
 // Update main information.
 $sql = "update leads 
@@ -30,15 +32,20 @@ $sql = "update leads
             contact_name = '$contact_name', 
             line_of_business = '$line_of_business', 
             type_id = $type,
-            stage_id = $stage
-        where id = $lead_id";
+            stage_id = $stage, ";
+if ($user_id > 0) {
+    $sql .= "user_id = $user_id ";
+}
+$sql .= "where id = $lead_id";
+
+error_log($sql);
 
 $result = $db->query($sql);
 
 $response = array();
 if ($result) {
     $response["success"] = true;
-    $response["msg"] = "Lead Updated.";
+    $response["msg"] = "Lead Updated. ";
 }
 
 // Update Address information
@@ -63,7 +70,7 @@ if ($address_1 != "" || $address_2 != "" || $city != "" || $zip != "") {
 
     if (!$result) {
         $result["success"] = false;
-        $response["msg"] = "Failed to update address information.";
+        $response["msg"] = "Failed to update address information. ";
     }	
 }
 
@@ -71,7 +78,7 @@ if ($address_1 != "" || $address_2 != "" || $city != "" || $zip != "") {
 $sql = "update leads_campaigns 
         set status_id = $status 
         where lead_id = $lead_id 
-            and campaign_id = ".$_SESSION["curr_campaign_id"];
+            and campaign_id = $campaign_id";
 $result = $db->query($sql);
 
 // Update Phone information.
@@ -120,17 +127,17 @@ if ($email != "") {
 
 // Update Sales Amount.
 if ($amount != "") {
-    $sql = "select id from sales where lead_id = $lead_id";
+    $sql = "select id from sales where lead_id = $lead_id and campaign_id = $campaign_id";
     $result = $db->query($sql);
 
     if ($result && $result->num_rows > 0) {
         $sql = "update sales 
                 set amount = $amount
-                where lead_id = $lead_id";
+                where lead_id = $lead_id and campaign_id = $campaign_id";
     } else {
         $sql = "insert into sales
-                (lead_id, amount) 
-                values ($lead_id, $amount)";
+                (lead_id, amount, campaign_id) 
+                values ($lead_id, $amount, $campaign_id)";
     }
     $result = $db->query($sql);
 

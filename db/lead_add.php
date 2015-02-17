@@ -19,10 +19,11 @@ $zip = filter_input(INPUT_GET, "zip");
 $status = filter_input(INPUT_GET, "status");
 $type = filter_input(INPUT_GET, "type");
 $stage = filter_input(INPUT_GET, "stage");
+$assigned_user = filter_input(INPUT_GET, "assigned_user");
 $campaign = filter_input(INPUT_GET, "campaign");
 
-$sql = "insert into leads (name, contact_name, line_of_business, type_id, stage_id) 
-        values ('$company_name', '$contact_name', '$lob', $type, $stage)";
+$sql = "insert into leads (name, contact_name, line_of_business, type_id, stage_id, user_id) 
+        values ('$company_name', '$contact_name', '$lob', $type, $stage, $assigned_user)";
 
 $result = $db->query($sql);
 
@@ -34,7 +35,7 @@ if (!$result) {
 
 $lead_id = $db->insert_id;
 
-$sql = "insert into leads_campaign (lead_id, campaign_id, status_id) 
+$sql = "insert into leads_campaigns (lead_id, campaign_id, status_id) 
         values ($lead_id, $campaign, $status)";
 $result = $db->query($sql);
 
