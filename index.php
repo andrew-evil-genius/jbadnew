@@ -22,6 +22,7 @@ $widget_style = "classic";
     <link rel="stylesheet" href="css/main-style.css" type="text/css" />
     <link rel="stylesheet" href="js/jqwidgets/styles/jqx.base.css" type="text/css" />
     <link rel="stylesheet" href="js/jqwidgets/styles/jqx.<?php echo $widget_style; ?>.css" type="text/css" />
+    <link rel="stylesheet" href="css/dropzone.css" type="text/css" />
     <script type="text/javascript" src="js/jquery/jquery.js"></script>
     <script type="text/javascript" src="js/jqwidgets/jqxcore.js"></script>
     <script type="text/javascript" src="js/jqwidgets/jqxwindow.js"></script>

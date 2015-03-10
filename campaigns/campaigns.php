@@ -48,6 +48,15 @@
     </div>
 </div>
 
+<div id="file_upload">
+    <div>Edit Campaign</div>
+    <div>
+        <form id="upload" method="post" action="db/upload_csv.php" enctype="multipart/form-data">
+             Select File: <input id="file_upload" name="file_upload" type="file" />
+        </form>
+    </div>
+</div>
+
 <!-- Campaign content javascript -->
 
 <script type="text/javascript" src="js/jqwidgets/jqxdata.js"></script> 
@@ -61,6 +70,9 @@
 <script type="text/javascript" src="js/jqwidgets/jqxdatetimeinput.js"></script> 
 <script type="text/javascript" src="js/jqwidgets/jqxcalendar.js"></script>
 <script type="text/javascript" src="js/jqwidgets/globalization/globalize.js"></script> 
+<script type="text/javascript" src="js/jquery/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="js/jquery/jquery.iframe-transport.js"></script>
+<script type="text/javascript" src="js/jquery/jquery.fileupload.js"></script>
 
 <script type="text/javascript">
     var selectedId = 0;
@@ -146,6 +158,26 @@
         });
 
         createEditCampaign();
+        createFileUpload();
+
+        $('#upload').fileupload({
+            // This function is called when a file is added to the queue;
+            // either via the browse button, or via drag/drop:
+            add: function (e, data) {
+                // Automatically upload the file once it is added to the queue
+                var jqXHR = data.submit();
+            },
+
+            fail: function(e, data){
+                // Something has gone wrong!
+                data.context.addClass('error');
+            },
+
+            done: function(e, data) {
+                importCampaignFromFile();
+            }
+
+        });
     }
 
     var selectedId = 0;
@@ -226,6 +258,17 @@
             $("#edit_campaign_form").jqxValidator("validate");
         });
     }
+
+    function createFileUpload() {
+        $('#file_upload').jqxWindow({ 
+            theme: "<?php echo $widget_style; ?>", 
+            width: 320,
+            height: 230, 
+            resizable: false,
+            isModal: true,
+            autoOpen: false
+        });
+    }
 	
     function renderToolbar(toolbar) {
         var container = $("<div style='overflow: hidden; position: relative; height: 100%; width: 100%;'></div>");
@@ -234,9 +277,11 @@
             var addNewButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Add New Campaign</div></div>");
             var deleteButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Delete Campaign</div></div>");
             var createFromExistingButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Create from Existing</div></div>");
+            var importFromFileButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Import from File</div></div>");
             
             container.append(addNewButton);
             container.append(createFromExistingButton);
+            container.append(importFromFileButton);
             container.append(deleteButton);
         
             addNewButton.jqxButton({
@@ -251,6 +296,12 @@
                 theme: "<?php echo $widget_style; ?>"
             });
 
+            importFromFileButton.jqxButton({
+                height: 20,
+                width: 105,
+                theme: "<?php echo $widget_style; ?>"
+            });
+
             deleteButton.jqxButton({
                 height: 20,
                 width: 115,
@@ -260,12 +311,13 @@
             addNewButton.on("click", addNewButtonClick);
             createFromExistingButton.on("click", createFromExistingButtonClick);
             deleteButton.on("click", deleteButtonClick);
+            importFromFileButton.on("click", importFromFileButtonClick);
         }
 	
         var toggleActiveButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Toggle Active</div></div>");
 	
         container.append(toggleActiveButton);
-	toolbar.append(container);
+	    toolbar.append(container);
 
         toggleActiveButton.jqxButton({
             height: 20,
@@ -317,6 +369,11 @@
             onSuccess: addFromExistingCampaign 
         });
     };
+
+    function importFromFileButtonClick(event) {
+        $('#file_upload').jqxWindow({title: "Import Campaign"});
+        $('#file_upload').jqxWindow("open");
+    };
     
     function addCampaign() {
         $.ajax({
@@ -354,6 +411,46 @@
             complete: onDbActionComplete
         });
     };
+
+    function importCampaignFromFile() {
+        $('#file_upload').jqxWindow("close");
+
+        $('#edit_campaign').jqxWindow({title: "Add Campaign"});
+        $("#edit_name").val("");
+        $("#edit_status").jqxCheckBox({checked: false});
+        $("#edit_dare").jqxCheckBox({checked: false});
+        $("#edit_name").focus();
+        $("#edit_campaign_container").show();
+        $('#edit_campaign').jqxWindow("open");
+
+        // Rules slightly different between adding and editing.
+        $("#edit_campaign_form").jqxValidator({
+            rules: [
+                {input: "#edit_name", message: "Name is required.", action: "keyup", rule: "required"}
+            ],
+            onError: function() { flash("All required fields must be filled out correctly."); },
+            onSuccess: importCampaign 
+        });
+    };
+
+    function importCampaign() {
+        $.ajax({
+            url: "db/campaign_import_from_file.php",
+            dataType: "json",
+            type: "POST",
+            data: {
+                name: $("#edit_name").val(),
+                start_date: $("#edit_start_date").jqxDateTimeInput("getText"),
+                end_date: $("#edit_end_date").jqxDateTimeInput("getText"),
+                status: $("#edit_status").jqxCheckBox("checked"),
+                dare: $("#edit_dare").jqxCheckBox("checked")
+            },
+            success: function (data, status, xhr) {
+                $("#edit_campaign").jqxWindow("close");
+                $("#campaigns_table").jqxDataTable('updateBoundData');
+            }
+        });
+    }
     
     function onAddSuccess(data, status, xhr) {
         flash(data.msg);
@@ -383,7 +480,7 @@
     
     function handleSetActiveCampaignSuccess(data, textStatus, xhr) {
         var response = $.parseJSON(data);
-        if (response.success) window.location.reload(false);
+        if (response.success) $("#campaigns_table").jqxDataTable('updateBoundData');
     }
     
     function deleteButtonClick(event) {

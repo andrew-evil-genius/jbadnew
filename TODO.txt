@@ -18,4 +18,8 @@
 *** DONE *** Import Campaign from previous Campaign.
 *** DONE *** Set Lead to a specific Sales user.
 Import Campaign from file.
+Only Active Campaigns should show up for Sales and Collectors.
+Need to be able to Toggle whether a project is active or not.
+Sales should be able to add a Lead.
 Create collections report.
+Import campaigns from old database to the new database.
