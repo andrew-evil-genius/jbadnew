@@ -18,6 +18,8 @@ if (!$db) {
     exit;
 }
 
+$resposne = array();
+
 try {
     $db->autocommit(false);
 
@@ -39,10 +41,8 @@ try {
     }
     
     $db->commit();
-    $response = array("success" => false, "msg" => "Campaign created successfully.");
-    //echo json_encode($response);
 
-    //create_leads_from_file($target_file, $db);
+    create_leads_from_file("uploads/campaign.csv", $db);
 
 } catch (Exception $e) {
     $db->rollback();
@@ -50,8 +50,12 @@ try {
 } finally {
     $db->autocommit(TRUE);
     unlink("uploads/campaign.csv");
-    echo json_encode($response);
 }
+
+if (!$response) {
+    $response = array("success" => true, "msg" => "Campaign created successfully.");
+}
+echo json_encode($response);
 
 function create_leads_from_file($file_name, $db) {
     $file = fopen($file_name, "r");
