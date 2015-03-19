@@ -102,7 +102,7 @@ if ($authorized) {
 
 <!-- Start index.php javascript -->
     <script content-type="text/javascript">
-	var roles = "<?php echo $roles; ?>";
+	var userRoles = "<?php echo $roles; ?>";
         
 	$(document).ready(function() {
             if (typeof(contentReady) !== "undefined") {
@@ -141,8 +141,8 @@ if ($authorized) {
             $("#sidebar_bottom").fadeOut(5000);
         }
 
-        function checkRole(role) {
-            if (roles.indexOf(role) > -1) return true;
+        function checkRole(rolesToCheck) {
+            if (rolesToCheck.indexOf(userRoles) > -1) return true;
             return false;
         }
     </script>
