@@ -11,3 +11,7 @@ function checkRole($role) {
     }
     return false;
 }
+
+function handleSpecialCharacters($sql_string) {
+	return str_replace("'", "\\'", $sql_string);
+}

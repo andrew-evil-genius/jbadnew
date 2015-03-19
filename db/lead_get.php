@@ -21,7 +21,6 @@ $sql = "select l.id, l.name as company_name, l.contact_name, lc.status_id, l.typ
      ." left join leads_campaigns as lc on lc.lead_id = l.id
         where l.id = $lead_id 
             and lc.campaign_id = ".$_SESSION["curr_campaign_id"];
-error_log($sql);
 
 $result = $db->query($sql);
 
