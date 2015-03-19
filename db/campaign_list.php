@@ -16,6 +16,7 @@ $sql = "select c.id, c.name, c.status, c.dare, c.startdate, c.enddate, l.user_id
         left join sales as s on s.lead_id = l.id and s.campaign_id = c.id "
         .getWhereClause($_SESSION["roles"]).
 	"group by c.id";
+error_log($sql);
         
 $result = $db->query($sql);
 
@@ -36,10 +37,13 @@ echo json_encode($response);
 
 function getWhereClause($roles) {
     if (strpos($roles, "sales") !== false) {
-        return "left join users as u on u.id = l.user_id where l.user_id = ".$_SESSION["user_id"]." ";
+        return "left join users as u on u.id = l.user_id 
+                where l.user_id = ".$_SESSION["user_id"]." 
+                and c.status = 1 ";
     }
     
     if (strpos($roles, "collections") !== false) {
-        return "where s.amount > 0 ";
+        return "where s.amount > 0 
+                and c.status = 1 ";
     }
 }
