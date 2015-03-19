@@ -274,37 +274,45 @@
         var container = $("<div style='overflow: hidden; position: relative; height: 100%; width: 100%;'></div>");
         
         if (checkRole("admin")) {
-            var addNewButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Add New Campaign</div></div>");
-            var deleteButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Delete Campaign</div></div>");
-            var createFromExistingButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Create from Existing</div></div>");
-            var importFromFileButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Import from File</div></div>");
+            var addNewButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Add New</div></div>");
+            var deleteButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Delete</div></div>");
+            var createFromExistingButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Copy</div></div>");
+            var importFromFileButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Import</div></div>");
+            var toggleActiveButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Toggle Active</div></div>");
             
             container.append(addNewButton);
             container.append(createFromExistingButton);
             container.append(importFromFileButton);
             container.append(deleteButton);
+            container.append(toggleActiveButton);
         
             addNewButton.jqxButton({
                 height: 20,
-                width: 130,
+                width: 65,
                 theme: "<?php echo $widget_style; ?>"
             });
             
             createFromExistingButton.jqxButton({
                 height: 20,
-                width: 135,
+                width: 45,
                 theme: "<?php echo $widget_style; ?>"
             });
 
             importFromFileButton.jqxButton({
                 height: 20,
-                width: 105,
+                width: 55,
                 theme: "<?php echo $widget_style; ?>"
             });
 
             deleteButton.jqxButton({
                 height: 20,
-                width: 115,
+                width: 50,
+                theme: "<?php echo $widget_style; ?>"
+            });
+
+            toggleActiveButton.jqxButton({
+                height: 20,
+                width: 100,
                 theme: "<?php echo $widget_style; ?>"
             });
             
@@ -312,20 +320,39 @@
             createFromExistingButton.on("click", createFromExistingButtonClick);
             deleteButton.on("click", deleteButtonClick);
             importFromFileButton.on("click", importFromFileButtonClick);
+            toggleActiveButton.on("click", toggleActiveButtonClick);
         }
 	
-        var toggleActiveButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Toggle Active</div></div>");
+        var toggleCurrentButton = $("<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 2px; width: 16px; height: 16px;'>Set Current</div></div>");
 	
-        container.append(toggleActiveButton);
+        container.append(toggleCurrentButton);
 	    toolbar.append(container);
 
-        toggleActiveButton.jqxButton({
+        toggleCurrentButton.jqxButton({
             height: 20,
-            width: 90,
+            width: 80,
             theme: "<?php echo $widget_style; ?>"
         });
 		
-	toggleActiveButton.on("click", setActiveCampaign);
+	   toggleCurrentButton.on("click", setActiveCampaign);
+    }
+
+    function toggleActiveButtonClick(event) {
+        var rows = $("#campaigns_table").jqxDataTable("getSelection");
+        var row = rows[0];
+
+        $.ajax({
+            url: "db/campaign_toggle_active.php",
+            dataType: "json",
+            type: "POST",
+            data: {
+                id: selectedId,
+                status: row.status
+            },
+            success: function (data, status, xhr) {
+                $("#campaigns_table").jqxDataTable('updateBoundData');
+            }
+        });
     }
     
     function addNewButtonClick(event) {
@@ -480,7 +507,10 @@
     
     function handleSetActiveCampaignSuccess(data, textStatus, xhr) {
         var response = $.parseJSON(data);
-        if (response.success) $("#campaigns_table").jqxDataTable('updateBoundData');
+        if (response.success) {
+            $("#campaigns_table").jqxDataTable('updateBoundData');
+            $("#current_campaign").text(response.campaign);
+        }
     }
     
     function deleteButtonClick(event) {

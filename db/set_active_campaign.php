@@ -20,7 +20,7 @@ if ($result) {
     $_SESSION["curr_campaign_id"] = $campaign_id;
 }
 
-$response = array("success" => $result, "msg" => $sql);
+$response = array("success" => $result, "msg" => $sql, "campaign" => $_SESSION["curr_campaign"]);
 
 echo json_encode($response);
 

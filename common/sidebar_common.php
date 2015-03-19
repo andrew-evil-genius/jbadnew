@@ -10,5 +10,5 @@
 <?php elseif (checkRole("collections")): ?>
         <li> Collections </li>
 <?php endif; ?>        
-	<li> Campaign: <?php echo $_SESSION["curr_campaign"]; ?>
+	<li> Campaign: <span id="current_campaign"><?php echo $_SESSION["curr_campaign"]; ?></span>
 </ul>
