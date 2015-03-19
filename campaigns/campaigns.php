@@ -473,8 +473,13 @@
                 dare: $("#edit_dare").jqxCheckBox("checked")
             },
             success: function (data, status, xhr) {
-                $("#edit_campaign").jqxWindow("close");
                 $("#campaigns_table").jqxDataTable('updateBoundData');
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            },
+            complete: function (xhr, status) {
+                $("#edit_campaign").jqxWindow("close");
             }
         });
     }

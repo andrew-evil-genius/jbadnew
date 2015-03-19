@@ -51,10 +51,11 @@ try {
 
 } catch (Exception $e) {
     $db->rollback();
-    $response = array("success" => false, "msg" => $e->getMessage());
-} finally {
     $db->autocommit(TRUE);
     unlink("uploads/campaign.csv");
+    $response = array("success" => false, "msg" => $e->getMessage());
+    echo json_encode($response);
+    exit;
 }
 
 if (!$response) {
